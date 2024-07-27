@@ -71,3 +71,6 @@
 |開発環境|Docker|
 |インフラ|Render|
 |Web API|楽天市場商品検索API / LINE Messaging API|
+
+## 画面遷移図
+[画面遷移図](https://www.figma.com/design/NGxB66DrYIOhnE8fVl6EGL/beauty-buddy?m=auto&t=ClRXHPxFz6QmVj1u-6)
