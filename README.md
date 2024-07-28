@@ -74,3 +74,6 @@
 
 ## 画面遷移図
 [画面遷移図](https://www.figma.com/design/NGxB66DrYIOhnE8fVl6EGL/beauty-buddy?m=auto&t=ClRXHPxFz6QmVj1u-6)
+
+## ER図
+[ER図](https://app.diagrams.net/#G1e4hDFw3oaqtzliBQlLk4whhhqqjM8UrG#%7B%22pageId%22%3A%22rJRSo4sX90WL3lKDXIOX%22%7D)
