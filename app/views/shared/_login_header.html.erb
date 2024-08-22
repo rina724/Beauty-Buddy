@@ -1,0 +1,61 @@
+<header class="navbar bg-base-100 bg-mint">
+  <div class="flex-1">
+    <a class="btn btn-ghost">
+        <%= link_to image_tag('logo2.png', class: "w-32 md:w-60 lg:w-64"), '/' %>
+    </a>
+  </div>
+
+  <%# コスメ一覧 %>
+  <div class="flex-none items-center">
+    <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-2">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+        height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
+        <path d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+      </svg>
+      <%= link_to 'cosme_index', '#' %>
+    </button>
+
+<%# カレンダー機能 %>
+    <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+        enable-background="new 0 0 24 24" 
+        height="24px" viewBox="0 0 24 24" 
+        width="24px" fill="#5f6368"><g><rect fill="none" height="24" width="24"/></g><g>
+        <path d="M19,4h-1V2h-2v2H8V2H6v2H5C3.89,4,3.01,4.9,3.01,6L3,20c0,1.1,0.89,2,2,2h14c1.1,0,2-0.9,2-2V6C21,4.9,20.1,4,19,4z M19,20 H5V10h14V20z M9,14H7v-2h2V14z M13,14h-2v-2h2V14z M17,14h-2v-2h2V14z M9,18H7v-2h2V18z M13,18h-2v-2h2V18z M17,18h-2v-2h2V18z"/></g>
+      </svg>
+      <%= link_to 'calendar', '#' %>
+    </button>
+  </div>
+
+<%# アバター画像 %>
+  <div class="flex-none">
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-15 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+            enable-background="new 0 0 20 20" height="48px" viewBox="0 0 20 20" width="48px" fill="#5f6368"><g><rect fill="none" height="20" width="20"/></g><g><g>
+            <path d="M10 2c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 3.5c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 11c-2.05 0-3.87-.95-5.07-2.44 1.45-.98 3.19-1.56 5.07-1.56s3.62.58 5.07 1.56c-1.2 1.49-3.02 2.44-5.07 2.44z"/></g></g>
+          </svg>
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow bg-mint items-center">
+            <li>
+              <%= link_to 'Profile', '#', class: 'btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline'%>
+            </li>
+            <li>
+              <%= link_to 'Settings', '#', class: 'btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline'%>
+            </li>
+            <li>
+              <%= link_to 'Mycosme', '#', class: 'btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline'%>
+            </li>
+            <li>
+              <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } , class: 'btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline'%>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
