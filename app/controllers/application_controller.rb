@@ -5,18 +5,20 @@ class ApplicationController < ActionController::Base
 
   protected
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
   end
 
   private
 
   # ログイン後のリダイレクト先
   def after_sign_in_path_for(resource_or_scope)
-    root_path  #ここを好きなパスに変更
+    # ここを好きなパスに変更
+    root_path
   end
 
   # ログアウト後のリダイレクト先
   def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path #ここを好きなパスに変更
+    # ここを好きなパスに変更
+    new_user_session_path
   end
 end
