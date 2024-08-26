@@ -3,4 +3,7 @@ class Cosmetic < ApplicationRecord
   validates :amount, presence: true
   validates :ingredient, presence: true
   validates :image, presence: true
+
+  belongs_to :brand
+  belongs_to :category
 end
