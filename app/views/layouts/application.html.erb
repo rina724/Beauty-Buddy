@@ -18,18 +18,14 @@
   </head>
 
   <body>
-    <div class="min-h-screen flex flex-col bg-cream">
       <% if user_signed_in? %>
         <%= render 'shared/login_header' %>
       <% else %>
         <%= render 'shared/before_login_header' %>
       <% end %>
-
       <div class="flex-grow">
         <%= yield %>
       </div>
-
       <%= render 'shared/footer' %>
-    </div> <!-- 外側のdivを閉じます -->
   </body>
 </html>

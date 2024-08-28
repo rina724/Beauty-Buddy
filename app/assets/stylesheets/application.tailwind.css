@@ -9,3 +9,12 @@
     -1px 1px 0 #cdb38c,
     1px 1px 0 #cdb38c;
 }
+
+.wrap{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.footer{
+    margin-top: auto;
+}
