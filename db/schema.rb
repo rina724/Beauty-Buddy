@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_31_052300) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_01_193924) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,19 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_31_052300) do
     t.index ["product_name"], name: "index_cosmetics_on_product_name", unique: true
   end
 
+  create_table "mycosmetics", force: :cascade do |t|
+    t.boolean "usage_situation"
+    t.date "starting_date"
+    t.integer "problem"
+    t.text "memo"
+    t.bigint "user_id"
+    t.bigint "cosmetic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cosmetic_id"], name: "index_mycosmetics_on_cosmetic_id"
+    t.index ["user_id"], name: "index_mycosmetics_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -58,4 +71,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_31_052300) do
 
   add_foreign_key "cosmetics", "brands"
   add_foreign_key "cosmetics", "categories"
+  add_foreign_key "mycosmetics", "cosmetics"
+  add_foreign_key "mycosmetics", "users"
 end
