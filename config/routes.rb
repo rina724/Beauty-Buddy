@@ -14,5 +14,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
 
-  resources :cosmetics, only: %i[index]
+  resources :cosmetics, only: %i[index show]
 end

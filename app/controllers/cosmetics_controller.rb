@@ -4,4 +4,8 @@ class CosmeticsController < ApplicationController
   def index
     @cosmetics = Cosmetic.includes(:category, :brand)
   end
+
+  def show
+    @cosmetic = Cosmetic.find(params[:id])
+  end
 end
