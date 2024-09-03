@@ -15,7 +15,9 @@
         <%= cosmetic.amount %>
       </p>
       <div class="card-actions justify-end">
-        <button class="btn bg-beige btn-outline">登録</button>
+        <button class="btn bg-beige btn-outline">
+          <%= link_to "登録", new_mycosmetic_path(cosmetic_id: cosmetic.id) %>
+        </button>
         <button class="btn outline">
           <svg
             xmlns="http://www.w3.org/2000/svg"

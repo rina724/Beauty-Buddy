@@ -1,0 +1,22 @@
+<div class="bg-cream">
+  <div class="flex-col card p-10">
+    <h1 class="card-title p-3 justify-center">登録内容</h1>
+    <div class="bg-base-100 m-4 items-center">
+      <div class="card-body flex items-center">
+        <%= image_tag @cosmetic.image, class: "size-48 p-3" %>
+        <div class="ml-4">
+          <h2 class="card-title">
+            <%= @cosmetic.product_name %>
+          </h2>
+          <p>
+            <%= @cosmetic.category.name %>
+          </p>
+          <p>
+            <%= @cosmetic.brand.name %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <%= render 'mycosme_form', mycosmetic: @mycosmetic %>
+  </div>
+</div>

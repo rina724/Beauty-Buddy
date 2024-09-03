@@ -1,0 +1,2 @@
+module MycosmeticsHelper
+end
