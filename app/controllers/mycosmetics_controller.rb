@@ -10,10 +10,14 @@ class MycosmeticsController < ApplicationController
     @cosmetic = Cosmetic.find(params[:mycosmetic][:cosmetic_id]) # フォームから送信されたcosmetic_idを使ってCosmeticを取得
     @mycosmetic = current_user.mycosmetics.build(mycosmetic_params) # Mycosmeticをユーザーに紐付けてインスタンス生成
     if @mycosmetic.save
-      redirect_to cosmetics_path
+      redirect_to mycosmetics_path
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def index
+    @mycosmetics = Mycosmetic.includes(cosmetic: [:category, :brand]).where(user: current_user)
   end
 
   private
