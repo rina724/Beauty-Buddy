@@ -51,7 +51,7 @@
               <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id) %>
             </button>
             <button class="btn bg-beige btn-outline">
-              <%= link_to "削除",'#' %>
+              <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
             </button>
             <button class="btn outline">
               <svg
