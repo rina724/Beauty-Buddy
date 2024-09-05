@@ -35,6 +35,12 @@ class MycosmeticsController < ApplicationController
     end
   end
 
+  def destroy
+    @mycosmetic = current_user.mycosmetics.find(params[:id])
+    @mycosmetic.destroy!
+    redirect_to mycosmetics_path
+  end
+
   private
 
   def mycosmetic_params
