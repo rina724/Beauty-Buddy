@@ -7,5 +7,6 @@ class CosmeticsController < ApplicationController
 
   def show
     @cosmetic = Cosmetic.find(params[:id])
+    @mycosmetic = current_user.mycosmetics.find(params[:id])
   end
 end

@@ -38,17 +38,17 @@
             現在利用しているか:  <%= mycosmetic.usage_situation %>
           </p>
           <p>
-            利用開始日: <%= mycosmetic.starting_date%>
+            利用開始日: <%= mycosmetic.starting_date %>
           </p>
           <p>
-            利用時の問題: <%= mycosmetic.problem%>
+            利用時の問題: <%= mycosmetic.problem %>
           </p>
           <p>
-            メモ: <%= mycosmetic.memo%>
+            メモ: <%= mycosmetic.memo %>
           </p>
           <div class="card-actions justify-end">
             <button class="btn bg-beige btn-outline">
-              <%= link_to "編集",'#' %>
+              <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id) %>
             </button>
             <button class="btn bg-beige btn-outline">
               <%= link_to "削除",'#' %>
