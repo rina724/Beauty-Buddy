@@ -1,4 +1,4 @@
-<%= form_with model: mycosmetic, url: mycosmetics_path do |f| %>
+<%= form_with model: mycosmetic do |f| %>
   <div class>
     <%= f.hidden_field :cosmetic_id, value: @cosmetic.id %>
     <div class="input input-bordered flex items-center gap-2 mb-4">
@@ -20,7 +20,7 @@
   </div>
   <div class="flex flex-col items-center justify-center">
     <div class="btn btn-wide bg-beige btn-outline">
-      <%= f.submit "登録" %>
+      <%= f.submit nil %>
     </div>
   </div>
 <% end %>

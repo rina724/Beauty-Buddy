@@ -17,12 +17,27 @@ class MycosmeticsController < ApplicationController
   end
 
   def index
-    @mycosmetics = Mycosmetic.includes(cosmetic: [:category, :brand]).where(user: current_user)
+    @mycosmetics = Mycosmetic.includes(cosmetic: [ :category, :brand ]).where(user: current_user)
+  end
+
+  def edit
+    @mycosmetic = current_user.mycosmetics.find(params[:id])
+    @cosmetic = Cosmetic.find(@mycosmetic.cosmetic_id)
+  end
+
+  def update
+    @mycosmetic = current_user.mycosmetics.find(params[:id])
+    @cosmetic = Cosmetic.find(@mycosmetic.cosmetic_id)
+    if @mycosmetic.update(mycosmetic_params)
+      redirect_to mycosmetics_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
 
   def mycosmetic_params
-    params.require(:mycosmetic).permit(:usage_situation, :starting_date, :problem, :memo, :cosmetic_id).merge(user_id: params[:user_id])
+    params.require(:mycosmetic).permit(:usage_situation, :starting_date, :problem, :memo, :cosmetic_id, :user_id)
   end
 end
