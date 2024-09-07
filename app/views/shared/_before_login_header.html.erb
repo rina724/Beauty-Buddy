@@ -1,15 +1,9 @@
 <header class="navbar bg-base-100 bg-mint">
   <div class="flex-1">
-    <a class="btn btn-ghost">
         <%= link_to image_tag('logo2.png', class: "w-32 md:w-60 lg:w-64"), '/' %>
-    </a>
   </div>
   <div class="flex-none">
-    <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-2">
-      <%= link_to 'login', '/users/sign_in' %>
-    </button>
-    <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-4">
-      <%= link_to 'signup', '/users/sign_up' %>
-    </button>
+    <%= link_to 'login', '/users/sign_in', class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-2" %>
+    <%= link_to 'signup', '/users/sign_up', class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-4" %>
   </div>
 </header>

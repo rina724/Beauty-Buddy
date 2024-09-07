@@ -16,7 +16,8 @@ module.exports = {
       'cream': '#FFFBEC',
       'beige': '#EDDDC5',
       'mint': '#94D0BF',
-      'yellow': '#FFE567'
+      'yellow': '#FFE567',
+      'gray': '#f3f4f6'
     },
   },
   plugins: [require("daisyui")],
