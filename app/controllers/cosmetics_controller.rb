@@ -7,6 +7,6 @@ class CosmeticsController < ApplicationController
 
   def show
     @cosmetic = Cosmetic.find(params[:id])
-    @mycosmetic = current_user.mycosmetics.find(params[:id])
+    @mycosmetic = current_user.mycosmetics.find_by(cosmetic_id: @cosmetic.id)
   end
 end
