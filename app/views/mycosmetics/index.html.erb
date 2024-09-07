@@ -23,8 +23,10 @@
   <div class="flex-col items-center pt-5">
     <% @mycosmetics.each do |mycosmetic| %>
       <div class="card card-side bg-base-100 m-4 flex items-center">
-        <%= image_tag mycosmetic.cosmetic.image, class: "size-48 p-3" %>
-        <div class="card-body">
+        <div class="size-48 p-3">
+          <%= image_tag mycosmetic.cosmetic.image, class: "object-contain w-full h-full"%>
+        </div>
+        <div class="card-body w-[calc(100%_-_192px)]">
           <h2 class="card-title">
             <%= mycosmetic.cosmetic.product_name %>
           </h2>
@@ -47,13 +49,9 @@
             メモ: <%= mycosmetic.memo %>
           </p>
           <div class="card-actions justify-end">
-            <button class="btn bg-beige btn-outline">
-              <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id) %>
-            </button>
-            <button class="btn bg-beige btn-outline">
-              <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
-            </button>
-            <button class="btn outline">
+            <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
+            <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
+            <button class="btn btn-outline bg-gray">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-6 w-6"
