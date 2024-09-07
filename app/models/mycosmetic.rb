@@ -1,5 +1,5 @@
 class Mycosmetic < ApplicationRecord
-  validates :cosmetic_id, uniqueness: true
+  validates :cosmetic_id, uniqueness: { scope: :user_id }
 
   belongs_to :user
   belongs_to :cosmetic
