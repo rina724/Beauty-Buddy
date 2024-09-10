@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :mycosmetics, dependent: :destroy
+  has_one :profile
   mount_uploader :avatar, AvatarUploader
 end

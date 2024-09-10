@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_10_145759) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_10_172338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_145759) do
     t.index ["user_id"], name: "index_mycosmetics_on_user_id"
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "caution"
+    t.string "allergy"
+    t.bigint "mycosmetic_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mycosmetic_id"], name: "index_profiles_on_mycosmetic_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -73,4 +84,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_145759) do
   add_foreign_key "cosmetics", "categories"
   add_foreign_key "mycosmetics", "cosmetics"
   add_foreign_key "mycosmetics", "users"
+  add_foreign_key "profiles", "mycosmetics"
+  add_foreign_key "profiles", "users"
 end
