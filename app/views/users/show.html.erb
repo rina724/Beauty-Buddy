@@ -1,0 +1,27 @@
+<div class="wrap bg-cream">
+  <div class="flex-col items-center p-9">
+    <h1 class="font-gen text-center text-2xl md:text-4xl lg:text-5xl py-7">アカウント設定</h1>
+    <div class="card bg-base-100 flex items-center">
+      <div class="card-body text-center">
+        <h3>ユーザー名</h3>
+        <p class="pb-5 font-bold text-lg md:text-xl lg:text-2xl">
+          <%= @user.name %>
+        </p>
+
+        <h3>メールアドレス</h3>
+        <p class="pb-5 font-bold text-lg md:text-xl lg:text-2xl">
+          <%= @user.email %>
+        </p>
+
+
+        <h3>プロフィール画像</h3>
+        <%= @user.avatar %>
+
+        <div class="flex justify-center m-3 gap-3">
+          <%= link_to "編集", '#', class: "btn bg-beige btn-outline w-52" %>
+          <%= link_to "パスワードの変更", '#', class: "btn bg-beige btn-outline w-52" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
