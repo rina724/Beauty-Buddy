@@ -15,10 +15,12 @@
 
 
         <h3>プロフィール画像</h3>
-        <%= @user.avatar %>
+        <div class="flex justify-center">
+          <%= image_tag @user.avatar_url, size: '80x80', class: 'w-20 h-20 object-cover rounded-full', alt: 'アバターアイコン' %>
+        </div>
 
         <div class="flex justify-center m-3 gap-3">
-          <%= link_to "編集", '#', class: "btn bg-beige btn-outline w-52" %>
+          <%= link_to "編集", edit_user_registration_path(current_user.id), class: "btn bg-beige btn-outline w-52" %>
           <%= link_to "パスワードの変更", '#', class: "btn bg-beige btn-outline w-52" %>
         </div>
       </div>

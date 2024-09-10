@@ -1,43 +1,50 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="wrap bg-cream">
+  <h2 class="text-center text-3xl md:text-4xl lg:text-5xl pt-10 pb-7">Edit</h2>
 
-<%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <div class="flex flex-col items-center">
+      <label class="input input-bordered flex items-center gap-2 mb-4 w-3/4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70">
+          <path
+            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+        </svg>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Username", class: "h-full w-full"%>
+      </label>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <label class="input input-bordered flex items-center gap-2 mb-4 w-3/4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          class="h-4 w-4 opacity-70">
+          <path
+          d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+          <path
+          d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+        </svg>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", class: "h-full w-full" %>
+      </label>
+
+      <div class="card-body items-center bg-base-100 ">
+        <%= f.label :avatar, class: 'text-base md:text-lg' %>
+        <%= image_tag current_user.avatar_url, class: 'rounded-full w-28 h-28 object-cover' %>
+        <%= f.file_field :avatar, class: 'block mt-2 w-full text-base', accept: 'image/*' %>
+        <%= f.hidden_field :avatar_cache %>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center py-5">
+      <button class="btn btn-sm sm:btn-sm md:btn-md bg-beige btn-outline">
+        <%= f.submit nil %>
+      </button>
+    </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+  <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+  <%= link_to "Back", :back %>
+</div>
