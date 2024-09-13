@@ -38,13 +38,13 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow bg-mint items-center gap-1">
             <li>
-              <%= link_to 'Profile', '#', class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
+              <%= link_to 'Profile', profiles_path, class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
             </li>
             <li>
-              <%= link_to 'Settings', '/users/show', class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
+              <%= link_to 'Settings', user_path(current_user), class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
             </li>
             <li>
-              <%= link_to 'Mycosme', '/mycosmetics', class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
+              <%= link_to 'Mycosme', mycosmetics_path, class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
             </li>
             <li>
               <%= link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete } , class: 'btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline min-w-24'%>
