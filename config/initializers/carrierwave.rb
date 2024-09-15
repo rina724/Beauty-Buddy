@@ -3,6 +3,7 @@ require "carrierwave/storage/file"
 require "carrierwave/storage/fog"
 
 CarrierWave.configure do |config|
+  if Rails.env.production?
     config.storage :fog
     config.fog_provider = "fog/aws"
     config.fog_directory  = ENV["AWS_BUCKET_NAME"] # バケット名
@@ -13,4 +14,7 @@ CarrierWave.configure do |config|
       region: "ap-northeast-1", # リージョン
       path_style: true
     }
+  else
+    config.storage :file
+  end
 end
