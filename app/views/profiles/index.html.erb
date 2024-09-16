@@ -1,0 +1,48 @@
+<div class="wrap bg-cream">
+  <div class="flex flex-col items-center p-9">
+    <h1 class="font-gen text-center text-2xl md:text-4xl lg:text-5xl py-7">プロフィール</h1>
+
+    <div class="flex justify-center items-center z-10">
+      <div class="card flex items-center bg-base-100 w-48">
+        <%= image_tag @user.avatar_url, size: '80x80', class: 'w-20 h-20 object-cover rounded-full', alt: 'アバターアイコン' %>
+        <p class="text-lg md:text-xl font-bold">
+          <%= @user.name %>
+        </p>
+      </div>
+    </div>
+
+      <div class="card bg-base-100 flex items-center -top-14 w-full">
+        <div class="card-body text-center pt-24">
+          <h3>アレルギー反応が出る成分</h3>
+          <dev class="pb-5 text-lg">
+            <% @allergies.each do |ingredient| %>
+              <%= ingredient %>
+            <% end %>
+            <%= button_to "登録", class:"btn bg-beige btn-outline" %>
+            <!-- モーダル -->
+            <div id="ingredientModal" class="modal">
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <%= form_with model: @current_user_profile, url: profiles_path, method: :post, local: true do |form| %>
+                  <div>
+                    <%= form.label :allergy, "アレルギー成分" %>
+                    <%= form.text_field :allergy %>
+                  </div>
+                  <div>
+                    <%= form.submit "登録", class: "btn bg-beige" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <h3>注意する成分</h3>
+          <div class="pb-5 text-lg">
+            <% @caution_ingredients.each do |ingredient| %>
+              <%= ingredient %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
