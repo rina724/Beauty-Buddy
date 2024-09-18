@@ -1,0 +1,59 @@
+<div class="wrap bg-cream">
+  <div class="flex flex-col items-center p-9">
+    <h1 class="font-gen text-center text-4xl md:text-4xl lg:text-5xl py-7">プロフィール</h1>
+
+    <div class="flex justify-center items-center z-10">
+      <div class="card flex flex-col items-center bg-base-100 w-52 pt-3">
+        <%= image_tag @user.avatar_url, class: 'w-20 h-20 object-cover rounded-full', alt: 'アバターアイコン' %>
+        <p class="text-lg md:text-xl mt-2">
+          <%= @user.name %>
+        </p>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 -mt-16 w-full">
+      <div class="card-body text-center pt-24">
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-xl font-bold mb-2">アレルギー反応が出る成分</h3>
+            <p class="text-lg mb-5 rounded-lg outline-dashed outline-beige">
+              <%= @current_user_profile.allergy.presence || "未登録" %>
+            </p>
+            <button class="btn btn-outline bg-beige px-8" onclick="ingredientModal.showModal()">
+              登録する
+            </button>
+
+            <h3 class="text-xl font-bold mb-2 mt-10">注意する成分</h3>
+            <div class="text-lg outline-dashed outline-beige rounded">
+              <% if @caution_ingredients.any? %>
+                <%= @caution_ingredients.join(", ") %>
+              <% else %>
+                現在注意する成分はありません
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル -->
+<dialog id="ingredientModal" class="modal">
+  <div class="modal-box">
+    <%= form_with model: @current_user_profile, url: profile_path(@current_user_profile), method: :patch, local: true do |form| %>
+      <h3 class="font-bold text-lg mb-4">アレルギー成分の登録</h3>
+      <div class="form-control">
+        <%= form.label :allergy, "ここに成分を記入してください", class: "label" %>
+        <%= form.text_field :allergy, class: "input input-bordered w-full" %>
+      </div>
+      <div class="modal-action">
+        <%= form.submit "登録", class: "btn bg-beige btn-outline" %>
+        <button type="button" class="btn" onclick="ingredientModal.close()">キャンセル</button>
+      </div>
+    <% end %>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
