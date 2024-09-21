@@ -6,5 +6,7 @@ class User < ApplicationRecord
 
   has_many :mycosmetics, dependent: :destroy
   has_one :profile
+  has_many :favorites
+  has_many :cosmetics, through: :favorites
   mount_uploader :avatar, AvatarUploader
 end

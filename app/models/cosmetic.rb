@@ -6,4 +6,6 @@ class Cosmetic < ApplicationRecord
   belongs_to :brand
   belongs_to :category
   has_one :mycosmetic
+  has_many :favorites
+  has_many :users, through: :favorites
 end
