@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_10_172338) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_21_043123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_172338) do
     t.index ["brand_id"], name: "index_cosmetics_on_brand_id"
     t.index ["category_id"], name: "index_cosmetics_on_category_id"
     t.index ["product_name"], name: "index_cosmetics_on_product_name", unique: true
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "cosmetic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cosmetic_id"], name: "index_favorites_on_cosmetic_id"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "mycosmetics", force: :cascade do |t|
@@ -82,6 +91,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_10_172338) do
 
   add_foreign_key "cosmetics", "brands"
   add_foreign_key "cosmetics", "categories"
+  add_foreign_key "favorites", "cosmetics"
+  add_foreign_key "favorites", "users"
   add_foreign_key "mycosmetics", "cosmetics"
   add_foreign_key "mycosmetics", "users"
   add_foreign_key "profiles", "mycosmetics"
