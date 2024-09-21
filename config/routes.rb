@@ -19,8 +19,13 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
 
-  resources :users, only: %i[show]
-  resources :cosmetics, only: %i[index show]
+  resources :users, only: %i[show] 
+  resources :cosmetics, only: %i[index show] do
+    collection do
+      get :favorites
+    end
+    resource :favorite, only: [:create, :destroy]
+  end
   resources :mycosmetics, only: %i[new create index edit update destroy]
   resources :profiles, only: %i[index update]
 end

@@ -17,7 +17,7 @@ class MycosmeticsController < ApplicationController
   end
 
   def index
-    @mycosmetics = Mycosmetic.includes(cosmetic: [ :category, :brand ]).where(user: current_user)
+      @mycosmetics = Mycosmetic.includes(:cosmetic).where(user: current_user)
   end
 
   def edit

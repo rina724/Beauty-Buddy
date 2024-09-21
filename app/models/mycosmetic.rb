@@ -3,6 +3,7 @@ class Mycosmetic < ApplicationRecord
 
   belongs_to :user
   belongs_to :cosmetic
+  has_many :favorites, through: :user
   has_many :profiles
 
   enum :problem, { good: 0, normal: 1,  bad: 2 }
