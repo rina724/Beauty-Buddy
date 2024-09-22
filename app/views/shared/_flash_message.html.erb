@@ -1,0 +1,5 @@
+<% flash.each do |message_type, message| %>
+  <div class="<%= message_type == 'success' || message_type == 'notice' ? 'bg-green' : 'bg-red' %>">
+    <%= content_tag :p, message, class: "p-3 text-base md:text-lg" %>
+  </div>
+<% end %>
