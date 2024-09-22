@@ -1,5 +1,5 @@
 <% if current_user.favorite?(cosmetic) %>
-  <%= render 'unfavorite', { cosmetic: cosmetic } %>
+  <%= render 'cosmetics/unfavorite', { cosmetic: cosmetic } %>
 <% else %>
-  <%= render 'favorite', { cosmetic: cosmetic } %>
+  <%= render 'cosmetics/favorite', { cosmetic: cosmetic } %>
 <% end %>

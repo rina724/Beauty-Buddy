@@ -51,7 +51,7 @@
           <div class="card-actions justify-end">
             <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
             <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
-            <%= render 'favorite_buttons', { cosmetic: mycosmetic.cosmetic } %>
+            <%= render 'cosmetics/favorite_buttons', { cosmetic: mycosmetic.cosmetic } %>
           </div>
         </div>
       </div>
