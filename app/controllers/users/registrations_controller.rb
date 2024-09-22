@@ -14,8 +14,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(sign_up_params)
     if @user.save
       sign_in(@user) # ユーザーをサインインさせる
-      redirect_to cosmetics_path # コスメ一覧ページにリダイレクト
+      redirect_to cosmetics_path, success: t("defaults.flash_message.created", item: User.model_name.human) # コスメ一覧ページにリダイレクト
     else
+      flash.now[:danger] = t("defaults.flash_message.not_created", item: User.model_name.human)
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,8 +30,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def update
     @user = current_user
     if @user.update(account_update_params)
-      redirect_to user_path(@user)
+      redirect_to user_path(@user), success: t("defaults.flash_message.updated", item: User.model_name.human)
     else
+      flash.now[:danger] = t("defaults.flash_message.not_updated", item: User.model_name.human)
       render :edit, status: :unprocessable_entity
     end
   end
