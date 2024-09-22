@@ -1,5 +1,0 @@
-<% if current_user.favorites.exists?(cosmetic_id: cosmetic.id) %>
-  <%= render 'cosmetics/unfavorite', { cosmetic: cosmetic } %>
-<% else %>
-  <%= render 'cosmetics/favorite', { cosmetic: cosmetic } %>
-<% end %>
