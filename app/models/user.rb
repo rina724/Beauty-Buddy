@@ -6,8 +6,9 @@ class User < ApplicationRecord
 
   has_many :mycosmetics, dependent: :destroy
   has_one :profile
-  has_many :favorites
+  has_one :calendar
   has_many :cosmetics
+  has_many :favorites
   has_many :favorite_cosmetics, through: :favorites, source: :cosmetic
   mount_uploader :avatar, AvatarUploader
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_21_043123) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_23_014432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,15 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_21_043123) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_brands_on_name", unique: true
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "record_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "record_date"], name: "index_calendars_on_user_id_and_record_date", unique: true
+    t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -89,6 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_21_043123) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "calendars", "users"
   add_foreign_key "cosmetics", "brands"
   add_foreign_key "cosmetics", "categories"
   add_foreign_key "favorites", "cosmetics"
