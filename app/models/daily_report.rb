@@ -1,4 +1,4 @@
-class Daily_report < ApplicationRecord
+class Dailyreport < ApplicationRecord
   belongs_to :user
   has_many :daily_report_cosmetics
   has_many :mycosmetics, through: :daily_report_cosmetics
@@ -11,5 +11,5 @@ class Daily_report < ApplicationRecord
     very_good: 4
   }
 
-  validates :report_date, presence: true, uniqueness: { scope: :user_id }
+  validates :start_time, presence: true, uniqueness: { scope: :user_id }
 end
