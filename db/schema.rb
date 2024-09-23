@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_23_014432) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_23_054908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,15 +19,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_014432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_brands_on_name", unique: true
-  end
-
-  create_table "calendars", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.date "record_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "record_date"], name: "index_calendars_on_user_id_and_record_date", unique: true
-    t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -49,6 +40,30 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_014432) do
     t.index ["brand_id"], name: "index_cosmetics_on_brand_id"
     t.index ["category_id"], name: "index_cosmetics_on_category_id"
     t.index ["product_name"], name: "index_cosmetics_on_product_name", unique: true
+  end
+
+  create_table "daily_report_cosmetics", force: :cascade do |t|
+    t.bigint "daily_report_id", null: false
+    t.bigint "mycosmetic_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daily_report_id", "mycosmetic_id"], name: "index_daily_report_cosmetics_uniqueness", unique: true
+    t.index ["daily_report_id"], name: "index_daily_report_cosmetics_on_daily_report_id"
+    t.index ["mycosmetic_id"], name: "index_daily_report_cosmetics_on_mycosmetic_id"
+  end
+
+  create_table "daily_reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "start_time", null: false
+    t.integer "health"
+    t.text "memo"
+    t.integer "date_amount"
+    t.bigint "mycosmetic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mycosmetic_id"], name: "index_daily_reports_on_mycosmetic_id"
+    t.index ["user_id", "start_time"], name: "index_daily_reports_on_user_id_and_start_time", unique: true
+    t.index ["user_id"], name: "index_daily_reports_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -98,9 +113,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_014432) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "calendars", "users"
   add_foreign_key "cosmetics", "brands"
   add_foreign_key "cosmetics", "categories"
+  add_foreign_key "daily_report_cosmetics", "daily_reports"
+  add_foreign_key "daily_report_cosmetics", "mycosmetics"
+  add_foreign_key "daily_reports", "mycosmetics"
+  add_foreign_key "daily_reports", "users"
   add_foreign_key "favorites", "cosmetics"
   add_foreign_key "favorites", "users"
   add_foreign_key "mycosmetics", "cosmetics"
