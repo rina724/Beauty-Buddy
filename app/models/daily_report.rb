@@ -1,4 +1,4 @@
-class Dailyreport < ApplicationRecord
+class DailyReport < ApplicationRecord
   belongs_to :user
   has_many :daily_report_cosmetics
   has_many :mycosmetics, through: :daily_report_cosmetics
