@@ -19,6 +19,20 @@
     margin-top: auto;
 }
 
+  /* アクティブ状態のスタイル */
+  .peer:checked + label {
+    background-color: #fcfcfc; 
+  }
+  
+  .peer:checked + label .icon {
+    filter: invert(70%) sepia(20%) saturate(600%) hue-rotate(330deg) brightness(120%) contrast(95%);
+  }
+
+  .peer:checked + label .text {
+    color: #f49595;
+    font-weight: bold;
+  }
+
 .simple-calendar table {
   -webkit-border-horizontal-spacing: 0px;
   -webkit-border-vertical-spacing: 0px;

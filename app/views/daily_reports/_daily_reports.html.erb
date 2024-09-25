@@ -1,0 +1,40 @@
+<%= form_with(model: daily_report, local: true) do |f| %>
+  <%= f.hidden_field :start_time, value: @date %>
+  
+  <div class="form-control">
+    <%= f.label :mycosmetic_id, "今日使った化粧品", class: "label" %>
+    <%= f.collection_select :mycosmetic_ids, current_user.mycosmetics.where(usage_situation: true), :id, ->(mycosmetic) { mycosmetic.cosmetic.product_name }, {}, { multiple: true } %>
+  </div>
+
+  <div class="form-control">
+    <%= f.label :health, "体調", class: "label" %>
+      <div class="flex flex-wrap justify-center gap-4">
+        <% DailyReport.healths.each do |key, value| %>
+          <div>
+            <input type="radio" 
+                    class="peer" 
+                    id="health_<%= key %>" 
+                    name="daily_report[health]" 
+                    value="<%= key %>" 
+                    style="display: none;">
+            <label class="flex flex-col items-center p-2 rounded-lg cursor-pointer bg-white hover:bg-gray" 
+                    for="health_<%= key %>">
+              <%= image_tag "health_icons/#{key}.svg", alt: key.humanize, class: "w-12 h-12 mb-2 icon" %>
+              <span class="text-sm text"><%= key.humanize %></span>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+    <div class="form-group flex-col">
+      <%= f.label :memo, "メモ" %>
+      <%= f.text_area :memo, class: "form-control rounded outline outline-gray" %>
+    </div>
+
+    <div class="flex flex-col items-center justify-center pt-6">
+    <%= f.submit nil, class:"btn bg-beige btn-outline"%>
+  </div>
+  <% end %>
+</div>
