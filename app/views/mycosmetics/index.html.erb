@@ -22,6 +22,7 @@
   <!-- 化粧品一覧 -->
   <div class="flex-col items-center pt-5">
     <% @mycosmetics.each do |mycosmetic| %>
+      <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
       <div class="card card-side bg-base-100 m-4 flex items-center">
         <div class="size-48 p-3">
           <%= image_tag mycosmetic.cosmetic.image, class: "object-contain w-full h-full"%>

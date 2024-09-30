@@ -10,6 +10,6 @@ class DailyReport < ApplicationRecord
     good: 3,
     very_good: 4
   }
-
   validates :start_time, presence: true, uniqueness: { scope: :user_id }
+  accepts_nested_attributes_for :daily_report_cosmetics, allow_destroy: true, reject_if: :all_blank
 end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   has_many :mycosmetics, dependent: :destroy
   has_one :profile
-  has_one :daily_report
+  has_many :daily_reports
   has_many :cosmetics
   has_many :favorites
   has_many :favorite_cosmetics, through: :favorites, source: :cosmetic

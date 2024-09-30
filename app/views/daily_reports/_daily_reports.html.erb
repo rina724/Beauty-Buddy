@@ -1,12 +1,17 @@
 <%= form_with(model: daily_report, local: true) do |f| %>
   <%= f.hidden_field :start_time, value: @date %>
   
-  <div class="form-control">
-    <%= f.label :mycosmetic_id, "今日使った化粧品", class: "label" %>
-    <%= f.collection_select :mycosmetic_ids, current_user.mycosmetics.where(usage_situation: true), :id, ->(mycosmetic) { mycosmetic.cosmetic.product_name }, {}, { multiple: true } %>
+    <div class="form-control py-3">
+      <%= f.label :mycosmetic_id, "今日使った化粧品", class: "label" %>
+      <!-- 選択された化粧品がここに表示されます -->
+    <div id="selected-cosmetics" class="mt-4 flex flex-wrap gap-2"></div>
+    <button type="button" class="btn btn-outline" onclick="window.my_modal_3.showModal()">
+      化粧品を選ぶ
+    </button>
   </div>
+    
 
-  <div class="form-control">
+  <div class="form-control py-3">
     <%= f.label :health, "体調", class: "label" %>
       <div class="flex flex-wrap justify-center gap-4">
         <% DailyReport.healths.each do |key, value| %>
@@ -28,13 +33,40 @@
     </div>
 
 
-    <div class="form-group flex-col">
+    <div class="form-group flex-col py-3">
       <%= f.label :memo, "メモ" %>
-      <%= f.text_area :memo, class: "form-control rounded outline outline-gray" %>
+      <%= f.text_area :memo, class: "form-control rounded outline outline-gray w-full" %>
     </div>
 
     <div class="flex flex-col items-center justify-center pt-6">
     <%= f.submit nil, class:"btn bg-beige btn-outline"%>
   </div>
-  <% end %>
 </div>
+<% end %>
+
+    <!-- モーダル -->
+    <dialog id="my_modal_3" class="modal">
+      <div class="modal-box">
+        <div class="flex flex-col justify-center items-center">
+          <h3 class="font-bold text-lg">化粧品を選択</h3>
+          <div class="py-2">
+              <%= collection_select :daily_report, :mycosmetic_id, 
+              mycosmetids_for_daily_use, 
+              :id, 
+              ->(mycosmetic) { mycosmetic.cosmetic.product_name }, 
+              {}, 
+              { 
+                multiple: true, 
+                id: 'cosmetic-select'
+              } 
+          %>
+          </div>
+          <div class="modal-action mt-4">
+          <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
+          </div>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+      <button>close</button>
+    </form>
+    </dialog>
