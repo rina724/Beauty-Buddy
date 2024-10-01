@@ -4,8 +4,21 @@
     <div class="card bg-base-100">
       <div class="card-body">
         <div class="simple-calendar rounded-lg overflow-hidden border border-gray">
-          <%= month_calendar do |date| %>
-            <%= link_to date.day, new_daily_report_path(date: date), class: "block w-full h-full" %>
+          <%= month_calendar events: @daily_reports do |date, daily_reports| %>
+            <% if daily_reports.any? %>
+              <%= link_to daily_report_path(daily_reports), class: "block w-full h-full" do %>
+                <div class="flex justify-between items-center">
+                  <span><%= date.day %></span>
+                  <span>✏️</span>
+                </div>
+              <% end %>
+            <% else %>
+              <%= link_to new_daily_report_path(date: date), class: "block w-full h-full" do %>
+                <div class="flex justify-between items-center">
+                  <span><%= date.day %></span>
+                </div>
+              <% end %>
+            <% end %>
           <% end %>
         </div>
       </div>

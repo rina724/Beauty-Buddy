@@ -5,6 +5,6 @@ class CreateCalendars < ActiveRecord::Migration[7.2]
       t.date :record_date, null: false
       t.timestamps
     end
-    add_index :calendars, [:user_id, :record_date], unique: true
+    add_index :calendars, [ :user_id, :record_date ], unique: true
   end
 end

@@ -23,9 +23,14 @@ class DailyReportsController < ApplicationController
     end
   end
 
+  def show
+    @daily_report = current_user.daily_reports.find(params[:id])
+    @date = @daily_report.start_time
+  end
+
   private
 
   def daily_report_params
-    params.require(:daily_report).permit(:start_time, :health, :memo,  daily_report_cosmetics_attributes: [:mycosmetic_id])
+    params.require(:daily_report).permit(:start_time, :health, :memo,  daily_report_cosmetics_attributes: [ :mycosmetic_id ])
   end
 end

@@ -6,7 +6,6 @@ document.addEventListener('turbo:load', () => {
   // モーダル関連の処理をここに移動
   const modalButton = document.querySelector('button[onclick="window.my_modal_3.showModal()"]');
   const modal = document.getElementById('my_modal_3');
-  const closeButton = modal.querySelector('form[method="dialog"] button');
 
   if (modalButton) {
     modalButton.addEventListener('click', () => {
@@ -14,7 +13,8 @@ document.addEventListener('turbo:load', () => {
     });
   }
 
-  if (closeButton) {
+  if (modal) {
+    const closeButton = modal.querySelector('form[method="dialog"] button');
     closeButton.addEventListener('click', () => {
       modal.close();
     });
@@ -34,7 +34,7 @@ window.addSelectedCosmetics = function() {
     if (!document.getElementById(`cosmetic-${cosmeticId}`)) {
       const newButton = document.createElement('button');
       newButton.id = `cosmetic-${cosmeticId}`;
-      newButton.className = 'btn btn-sm btn-outline max-w-full h-12';
+      newButton.className = 'btn btn-sm btn-outline max-w-full h-auto p-3';
       newButton.innerHTML = `
         ${cosmeticName}
         <input type="hidden" name="daily_report[daily_report_cosmetics_attributes][][mycosmetic_id]" value="${cosmeticId}">
