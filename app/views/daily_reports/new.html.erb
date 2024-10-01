@@ -1,0 +1,9 @@
+<div class="bg-cream wrap">
+  <h1 class="font-gen text-2xl px-5 pt-10 text-center lg:text-3xl">デイリー入力</h1>
+  <div class="bg-base-100 mx-10 my-6 items-center">
+    <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
+      <div class="card-body flex items-center">
+        <%= render 'daily_reports', daily_report: @daily_report, mycosmetids_for_daily_use: @mycosmetids_for_daily_use%>
+      </div>
+  </div>
+</div>

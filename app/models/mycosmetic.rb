@@ -9,4 +9,6 @@ class Mycosmetic < ApplicationRecord
   has_many :daily_report, through: :daily_report_cosmetics
 
   enum :problem, { good: 0, normal: 1,  bad: 2 }
+
+  scope :for_daily_use, -> { where(usage_situation: true) }
 end
