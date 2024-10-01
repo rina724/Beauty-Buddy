@@ -15,7 +15,7 @@ class RemoveCalendarsAndCreateDailyReports < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :daily_reports, [:user_id, :start_time], unique: true
+    add_index :daily_reports, [ :user_id, :start_time ], unique: true
 
     create_table :daily_report_cosmetics do |t|
       t.references :daily_report, null: false, foreign_key: true
@@ -24,6 +24,6 @@ class RemoveCalendarsAndCreateDailyReports < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :daily_report_cosmetics, [:daily_report_id, :mycosmetic_id], unique: true, name: 'index_daily_report_cosmetics_uniqueness'
+    add_index :daily_report_cosmetics, [ :daily_report_id, :mycosmetic_id ], unique: true, name: 'index_daily_report_cosmetics_uniqueness'
   end
 end
