@@ -1,9 +1,9 @@
-<div class="bg-black-200 wrap">
+<div class="bg-cream wrap">
   <h1 class="font-gen text-2xl px-5 pt-10 text-center lg:text-3xl">デイリー入力</h1>
   <div class="bg-base-100 mx-10 my-6 items-center">
     <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
     <div class="card-body flex items-center">
-      <h3 class="text-xl mt-4 bg-red">今日使った化粧品</h3>
+      <h3 class="text-xl mt-4">今日使った化粧品</h3>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <% @daily_report.mycosmetics.each do |mycosmetic| %>
           <div class="card flex items-center w-64">
@@ -28,12 +28,12 @@
 
 
       <h3 class="text-xl mt-4">メモ</h3>
-      <div class="border w-full max-w-[250px] md:min-w-[500px] p-5 rounded-lg break-all">
+      <div class="border w-full max-w-[500px] md:min-w-[500px] p-5 rounded-lg break-all">
         <%= @daily_report.memo %>
       </div>
 
       <div class="flex justify-center gap-6 pt-10">
-        <%= link_to "編集", "#", class: "btn bg-beige btn-outline"%>
+        <%= link_to "編集", "#", class: "btn bg-beige btn-outline "%>
         <%= link_to "削除", "#", class: "btn bg-beige btn-outline"%>
       </div>
     </div>
