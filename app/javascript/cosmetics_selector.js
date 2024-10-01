@@ -34,11 +34,10 @@ window.addSelectedCosmetics = function() {
     if (!document.getElementById(`cosmetic-${cosmeticId}`)) {
       const newButton = document.createElement('button');
       newButton.id = `cosmetic-${cosmeticId}`;
-      newButton.className = 'btn btn-sm btn-outline mr-2 mb-2';
+      newButton.className = 'btn btn-sm btn-outline max-w-full h-12';
       newButton.innerHTML = `
         ${cosmeticName}
         <input type="hidden" name="daily_report[daily_report_cosmetics_attributes][][mycosmetic_id]" value="${cosmeticId}">
-        <span class="ml-2" onclick="event.stopPropagation(); window.removeCosmeticField(${cosmeticId})">×</span>
       `;
       newButton.onclick = () => window.removeCosmeticField(cosmeticId);
       selectedCosmeticsDiv.appendChild(newButton);

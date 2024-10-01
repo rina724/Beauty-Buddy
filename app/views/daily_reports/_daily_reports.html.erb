@@ -4,8 +4,8 @@
     <div class="form-control py-3">
       <%= f.label :mycosmetic_id, "今日使った化粧品", class: "label" %>
       <!-- 選択された化粧品がここに表示されます -->
-    <div id="selected-cosmetics" class="mt-4 flex flex-wrap gap-2"></div>
-    <button type="button" class="btn btn-outline" onclick="window.my_modal_3.showModal()">
+    <div id="selected-cosmetics" class="mt-2 flex flex-wrap gap-2 shrink"></div>
+    <button type="button" class="btn btn-outline my-3 bg-beige" onclick="window.my_modal_3.showModal()">
       化粧品を選ぶ
     </button>
   </div>
@@ -46,10 +46,10 @@
 
     <!-- モーダル -->
     <dialog id="my_modal_3" class="modal">
-      <div class="modal-box">
-        <div class="flex flex-col justify-center items-center">
-          <h3 class="font-bold text-lg">化粧品を選択</h3>
-          <div class="py-2">
+      <div class="modal-box w-11/12 max-w-5xl">
+        <div class="flex flex-col justify-center items-center w-full">
+          <h3 class="font-bold text-lg mb-2">化粧品を選択</h3>
+          <div class="w-full max-h-96 overflow-y-auto">
               <%= collection_select :daily_report, :mycosmetic_id, 
               mycosmetids_for_daily_use, 
               :id, 
@@ -57,12 +57,13 @@
               {}, 
               { 
                 multiple: true, 
-                id: 'cosmetic-select'
-              } 
+                id: 'cosmetic-select',
+                class: 'w-full p-2 border rounded-md'
+              }
           %>
           </div>
           <div class="modal-action mt-4">
-          <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
+            <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
           </div>
         </div>
       </div>
