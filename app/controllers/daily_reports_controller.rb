@@ -23,6 +23,11 @@ class DailyReportsController < ApplicationController
     end
   end
 
+  def show
+    @daily_report = current_user.daily_reports.find(params[:id])
+    @date = @daily_report.start_time
+  end
+
   private
 
   def daily_report_params
