@@ -1,6 +1,6 @@
 class DailyReportsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_daily_report, only: [:show, :edit, :update]
+  before_action :set_daily_report, only: [ :show, :edit, :update ]
 
   def index
     @daily_reports = DailyReport.includes(:user).where(user: current_user)
@@ -52,6 +52,6 @@ class DailyReportsController < ApplicationController
 
   def daily_report_params
     params.require(:daily_report).permit(:start_time, :health, :memo,
-      daily_report_cosmetics_attributes: [:id, :mycosmetic_id, :_destroy])
+      daily_report_cosmetics_attributes: [ :id, :mycosmetic_id, :_destroy ])
   end
 end
