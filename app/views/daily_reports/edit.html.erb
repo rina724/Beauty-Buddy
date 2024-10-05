@@ -3,7 +3,7 @@
   <div class="bg-base-100 mx-10 my-6 items-center">
     <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
     <div class="card-body flex items-center">
-      <%= form_with(model: @daily_report, local: true,  method: :put) do |f| %>
+      <%= form_with(model: @daily_report, local: true, method: :patch, class: 'edit-daily-report-form') do |f| %>
         <%= f.hidden_field :start_time, value: @date %>
         
         <div class="form-control py-3">
@@ -14,6 +14,8 @@
                 <div id="cosmetic-<%= dcf.object.mycosmetic.id %>" class="btn btn-sm btn-outline max-w-full h-auto p-3 flex items-center">
                   <%= dcf.object.mycosmetic.cosmetic.product_name %>
                   <%= dcf.hidden_field :mycosmetic_id %>
+                  <%= dcf.hidden_field :id %>
+                  <%= dcf.hidden_field :_destroy %>
                 </div>
               <% end %>
             <% end %>
@@ -24,6 +26,7 @@
             </button>
           </div>
         </div>
+
         <div class="form-control py-3">
           <%= f.label :health, "体調", class: "text-lg" %>
           <div class="flex flex-wrap justify-center gap-4">
@@ -71,7 +74,7 @@
       %>
       </div>
       <div class="modal-action mt-4">
-        <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
+        <button class="btn" onclick="addSelectedCosmeticsEdit()">選択完了</button>
       </div>
     </div>
   </div>

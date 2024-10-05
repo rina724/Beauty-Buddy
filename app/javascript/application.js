@@ -2,3 +2,4 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import './cosmetics_selector'
+import './cosmetics_selector_edit.js'

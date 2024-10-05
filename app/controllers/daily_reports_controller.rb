@@ -51,7 +51,7 @@ class DailyReportsController < ApplicationController
   end
 
   def daily_report_params
-    params.require(:daily_report).permit(:start_time, :health, :memo, mycosmetic_ids: [],
+    params.require(:daily_report).permit(:start_time, :health, :memo,
       daily_report_cosmetics_attributes: [:id, :mycosmetic_id, :_destroy])
   end
 end

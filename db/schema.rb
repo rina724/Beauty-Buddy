@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_23_054908) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_05_160816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,11 +43,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_23_054908) do
   end
 
   create_table "daily_report_cosmetics", force: :cascade do |t|
-    t.bigint "daily_report_id", null: false
-    t.bigint "mycosmetic_id", null: false
+    t.bigint "daily_report_id"
+    t.bigint "mycosmetic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["daily_report_id", "mycosmetic_id"], name: "index_daily_report_cosmetics_uniqueness", unique: true
+    t.index ["daily_report_id", "mycosmetic_id"], name: "index_on_daily_report_id_and_mycosmetic_id"
     t.index ["daily_report_id"], name: "index_daily_report_cosmetics_on_daily_report_id"
     t.index ["mycosmetic_id"], name: "index_daily_report_cosmetics_on_mycosmetic_id"
   end
