@@ -1,6 +1,6 @@
 class DailyReportsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_daily_report, only: [ :show, :edit, :update ]
+  before_action :set_daily_report, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @daily_reports = DailyReport.includes(:user).where(user: current_user)
@@ -42,6 +42,11 @@ class DailyReportsController < ApplicationController
       flash.now[:danger] = "デイリー入力の更新に失敗しました"
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @daily_report.destroy!
+    redirect_to daily_reports_path, success: "カレンダーから削除しました"
   end
 
   private
