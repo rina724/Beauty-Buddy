@@ -1,0 +1,81 @@
+<div class="bg-cream wrap">
+  <h1 class="font-gen text-2xl px-5 pt-10 text-center lg:text-3xl">デイリー編集</h1>
+  <div class="bg-base-100 mx-10 my-6 items-center">
+    <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
+    <div class="card-body flex items-center">
+      <%= form_with(model: @daily_report, local: true,  method: :put) do |f| %>
+        <%= f.hidden_field :start_time, value: @date %>
+        
+        <div class="form-control py-3">
+          <%= f.label :mycosmetic_id, "今日使った化粧品", class: "text-lg" %>
+          <div id="selected-cosmetics" class="mt-2 flex flex-wrap gap-2 shrink">
+            <%= f.fields_for :daily_report_cosmetics do |dcf| %>
+              <% if dcf.object.mycosmetic %>
+                <div id="cosmetic-<%= dcf.object.mycosmetic.id %>" class="btn btn-sm btn-outline max-w-full h-auto p-3 flex items-center">
+                  <%= dcf.object.mycosmetic.cosmetic.product_name %>
+                  <%= dcf.hidden_field :mycosmetic_id %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-outline bg-beige my-3 w-40 items-center" onclick="window.my_modal_3.showModal()">
+              化粧品を選ぶ
+            </button>
+          </div>
+        </div>
+        <div class="form-control py-3">
+          <%= f.label :health, "体調", class: "text-lg" %>
+          <div class="flex flex-wrap justify-center gap-4">
+            <% DailyReport.healths.each do |key, value| %>
+              <div>
+                <%= f.radio_button :health, key, class: "peer", style: "display: none;" %>
+                <label class="flex flex-col items-center p-2 rounded-lg cursor-pointer bg-white hover:bg-gray" for="daily_report_health_<%= key %>">
+                  <%= image_tag "health_icons/#{key}.svg", alt: key.humanize, class: "w-12 h-12 mb-2 icon" %>
+                  <span class="text-sm text"><%= key.humanize %></span>
+                </label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group flex-col py-3">
+          <%= f.label :memo, "メモ" , class: "text-lg"%>
+          <%= f.text_area :memo, class: "form-control rounded outline outline-gray w-full" %>
+        </div>
+
+        <div class="flex flex-col items-center justify-center pt-6">
+          <%= f.submit "更新", class:"btn bg-beige btn-outline"%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル -->
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box w-11/12 max-w-5xl">
+    <div class="flex flex-col justify-center items-center w-full">
+      <h3 class="font-bold text-lg mb-2">化粧品を選択</h3>
+      <div class="w-full max-h-96 overflow-y-auto">
+          <%= collection_select :daily_report, :mycosmetic_id, 
+          @mycosmetids_for_daily_use, 
+          :id, 
+          ->(mycosmetic) { mycosmetic.cosmetic.product_name }, 
+          {}, 
+          { 
+            multiple: true, 
+            id: 'cosmetic-select',
+            class: 'w-full p-2 border rounded-md'
+          }
+      %>
+      </div>
+      <div class="modal-action mt-4">
+        <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+  <button>close</button>
+</form>
+</dialog>

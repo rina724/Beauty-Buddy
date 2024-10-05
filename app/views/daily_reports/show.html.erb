@@ -6,10 +6,12 @@
       <h3 class="text-xl mt-4">今日使った化粧品</h3>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <% @daily_report.mycosmetics.each do |mycosmetic| %>
-          <div class="card flex items-center w-64">
-            <%= image_tag mycosmetic.cosmetic.image, class: "size-32 md:size-36" %>
-            <div class="card-body max-w-60 text-sm">
-              <%= mycosmetic.cosmetic.product_name %>
+          <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
+            <div class="card flex items-center w-64">
+              <%= image_tag mycosmetic.cosmetic.image, class: "size-32 md:size-36" %>
+              <div class="card-body max-w-60 text-sm">
+                <%= mycosmetic.cosmetic.product_name %>
+              </div>
             </div>
           </div>
         <% end %>
@@ -33,7 +35,7 @@
       </div>
 
       <div class="flex justify-center gap-6 pt-10">
-        <%= link_to "編集", "#", class: "btn bg-beige btn-outline "%>
+        <%= link_to "編集", edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
         <%= link_to "削除", "#", class: "btn bg-beige btn-outline"%>
       </div>
     </div>
