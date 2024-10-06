@@ -2,7 +2,9 @@ class CosmeticsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @cosmetics = Cosmetic.includes(:category, :brand)
+    @q = Cosmetic.ransack(params[:q])
+    @cosmetics = @q.result(distinct: true).includes(:category, :brand)
+    @categories = Category.all
     @user_mycosmetics = current_user.mycosmetics.pluck(:cosmetic_id)
   end
 
