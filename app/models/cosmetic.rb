@@ -10,10 +10,10 @@ class Cosmetic < ApplicationRecord
   has_many :users, through: :favorites
 
   def self.ransackable_attributes(auth_object = nil)
-    ["brand", "category", "product_name"]
+    [ "brand", "category", "product_name" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["category", "brand"]
+    [ "category", "brand" ]
   end
 end
