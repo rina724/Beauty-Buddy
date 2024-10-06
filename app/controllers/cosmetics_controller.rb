@@ -3,6 +3,7 @@ class CosmeticsController < ApplicationController
 
   def index
     @cosmetics = Cosmetic.includes(:category, :brand)
+    @user_mycosmetics = current_user.mycosmetics.pluck(:cosmetic_id)
   end
 
   def show
