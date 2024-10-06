@@ -28,5 +28,5 @@ Rails.application.routes.draw do
   end
   resources :mycosmetics, only: %i[new create index edit update destroy]
   resources :profiles, only: %i[index update]
-  resources :daily_reports, only: %i[new create index show edit update]
+  resources :daily_reports, only: %i[new create index show edit update destroy]
 end

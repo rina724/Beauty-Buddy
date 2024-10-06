@@ -29,7 +29,7 @@
         </div>
         <div class="card-body w-[calc(100%_-_192px)]">
           <h2 class="card-title">
-            <%= mycosmetic.cosmetic.product_name %>
+          <%= link_to mycosmetic.cosmetic.product_name, cosmetic_path(mycosmetic.cosmetic) %>
           </h2>
           <p>
             <%= link_to mycosmetic.cosmetic.category.name, '#' %>
