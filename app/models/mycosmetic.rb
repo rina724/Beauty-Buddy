@@ -11,4 +11,11 @@ class Mycosmetic < ApplicationRecord
   enum :problem, { good: 0, normal: 1,  bad: 2 }
 
   scope :for_daily_use, -> { where(usage_situation: true) }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["cosmetic_id", "id", "user_id"]
+  end
+  def self.ransackable_associations(auth_object = nil)
+    ["cosmetic", "user"]
+  end
 end
