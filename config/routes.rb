@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :cosmetics, only: %i[index show] do
     collection do
       get :favorites
+      get :search
     end
     resource :favorite, only: %i[create destroy]
   end

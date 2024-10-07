@@ -18,7 +18,7 @@ class MycosmeticsController < ApplicationController
   end
 
   def index
-    @q = Mycosmetic.includes(cosmetic: [:category, :brand]).ransack(params[:q])
+    @q = Mycosmetic.includes(cosmetic: [ :category, :brand ]).ransack(params[:q])
     @mycosmetics = @q.result(distinct: true).where(user: current_user)
   end
 
