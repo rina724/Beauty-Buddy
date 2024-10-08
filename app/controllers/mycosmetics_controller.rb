@@ -44,6 +44,25 @@ class MycosmeticsController < ApplicationController
     redirect_to mycosmetics_path, success: "マイコスメから削除しました"
   end
 
+  def search
+    query = params[:q]
+    @mycosmetics = current_user.mycosmetics.joins(:cosmetic)
+                            .where("cosmetics.product_name ILIKE ?", "%#{query}%") # クエリによるフィルタリング
+                            .includes(cosmetic: :brand)
+  
+    brand_ids = current_user.mycosmetics
+                            .joins(cosmetic: :brand)
+                            .where("brands.name ILIKE ?", "%#{query}%")
+                            .pluck('brands.id')
+                            .uniq
+
+    @brands = Brand.where(id: brand_ids)
+
+      respond_to do |format|
+        format.js
+      end
+  end
+
   private
 
   def mycosmetic_params
