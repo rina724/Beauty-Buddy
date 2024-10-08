@@ -49,11 +49,11 @@ class MycosmeticsController < ApplicationController
     @mycosmetics = current_user.mycosmetics.joins(:cosmetic)
                             .where("cosmetics.product_name ILIKE ?", "%#{query}%") # クエリによるフィルタリング
                             .includes(cosmetic: :brand)
-  
+
     brand_ids = current_user.mycosmetics
                             .joins(cosmetic: :brand)
                             .where("brands.name ILIKE ?", "%#{query}%")
-                            .pluck('brands.id')
+                            .pluck("brands.id")
                             .uniq
 
     @brands = Brand.where(id: brand_ids)

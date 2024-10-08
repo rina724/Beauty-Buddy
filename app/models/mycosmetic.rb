@@ -13,7 +13,7 @@ class Mycosmetic < ApplicationRecord
   scope :for_daily_use, -> { where(usage_situation: true) }
 
   def self.ransackable_attributes(auth_object = nil)
-    [ "cosmetic_id", "id", "user_id"]
+    [ "cosmetic_id", "id", "user_id" ]
   end
   def self.ransackable_associations(auth_object = nil)
     [ "cosmetic", "user" ]
