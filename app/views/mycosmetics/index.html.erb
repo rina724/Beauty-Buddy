@@ -1,5 +1,5 @@
 <div class="bg-cream wrap">
-  <h1 class="font-gen text-4xl p-5">マイコスメ一覧</h1>
+  <h1 class="font-gen text-3xl md:text-4xl pt-5 px-5">マイコスメ一覧</h1>
   <div class="flex items-center justify-center m-2">
     <!-- 検索フォーム -->
     <%= render 'search', q: @q, url: mycosmetics_path %>
@@ -9,32 +9,41 @@
   <div class="flex-col items-center pt-5">
     <% @mycosmetics.each do |mycosmetic| %>
       <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
-      <div class="card card-side bg-base-100 m-4 flex items-center">
+      <div class="card card-side bg-base-100 m-4 mx-9 flex items-center">
+
         <div class="size-48 p-3">
           <%= image_tag mycosmetic.cosmetic.image, class: "object-contain w-full h-full"%>
         </div>
+
         <div class="card-body w-[calc(100%_-_192px)]">
           <h2 class="card-title">
-          <%= link_to mycosmetic.cosmetic.product_name, cosmetic_path(mycosmetic.cosmetic) %>
+            <%= link_to mycosmetic.cosmetic.product_name, cosmetic_path(mycosmetic.cosmetic) %>
           </h2>
+
           <p>
             <%= link_to mycosmetic.cosmetic.category.name, '#' %>
           </p>
+
           <p>
             <%= link_to mycosmetic.cosmetic.brand.name, '#' %>
           </p>
+
           <p>
             現在利用しているか:  <%= mycosmetic.usage_situation %>
           </p>
+
           <p>
             利用開始日: <%= mycosmetic.starting_date %>
           </p>
+
           <p>
             利用時の問題: <%= mycosmetic.problem %>
           </p>
+
           <p>
             メモ: <%= mycosmetic.memo %>
           </p>
+
           <div class="card-actions justify-end">
             <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
             <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>

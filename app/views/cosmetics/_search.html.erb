@@ -1,13 +1,20 @@
-<%= search_form_for q, url: cosmetics_path, html: { class: "flex items-center justify-center p-3 gap-3" } do |f| %>
+<%= search_form_for q, url: cosmetics_path, html: { class: "flex items-center justify-center p-3 gap-3 w-full" } do |f| %>
 
   <%= f.select :category_id_eq, 
     Category.all.map { |c| [c.name, c.id] },
     { include_blank: 'カテゴリーを選択' },
-    class: "select select-bordered w-full max-w-xs" %>
+    class: "select select-bordered w-full max-w-64" %>
 
-  <label class="input input-bordered flex items-center">
-    <%= f.search_field :product_name_or_brand_name_cont, class: "grow", placeholder: "検索" %>
-  </label>
+  <div data-controller="autocomplete" 
+    data-autocomplete-url-value="/cosmetics/search" role="combobox" class="relative grow max-w-lg">
+      <label class="input input-bordered flex items-center w-full">
+        <%= f.search_field :product_name_or_brand_name_cont,
+          class: "grow", placeholder: "検索", data: {autocomplete_target: "input"} %>
+        <%= f.hidden_field :product_name_or_brand_name, data: { autocomplete_target: 'hidden' } %>
+      </label>
+      <ul class="list-group absolute z-10 w-full bg-white border border-gray-100 mt-1 rounded-md shadow-lg break-all" 
+          data-autocomplete-target="results"></ul>
+    </div>
 
   <%= f.submit "検索", class: "btn bg-beige btn-outline" %>
 <% end %>

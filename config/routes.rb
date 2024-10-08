@@ -23,10 +23,16 @@ Rails.application.routes.draw do
   resources :cosmetics, only: %i[index show] do
     collection do
       get :favorites
+      get :search
     end
     resource :favorite, only: %i[create destroy]
   end
-  resources :mycosmetics, only: %i[new create index edit update destroy]
+
+  resources :mycosmetics, only: %i[new create index edit update destroy] do
+    collection do
+      get :search
+    end
+  end
   resources :profiles, only: %i[index update]
   resources :daily_reports, only: %i[new create index show edit update destroy]
 end

@@ -18,7 +18,7 @@ class MycosmeticsController < ApplicationController
   end
 
   def index
-    @q = Mycosmetic.includes(cosmetic: [:category, :brand]).ransack(params[:q])
+    @q = Mycosmetic.includes(cosmetic: [ :category, :brand ]).ransack(params[:q])
     @mycosmetics = @q.result(distinct: true).where(user: current_user)
   end
 
@@ -42,6 +42,25 @@ class MycosmeticsController < ApplicationController
     @mycosmetic = current_user.mycosmetics.find(params[:id])
     @mycosmetic.destroy!
     redirect_to mycosmetics_path, success: "マイコスメから削除しました"
+  end
+
+  def search
+    query = params[:q]
+    @mycosmetics = current_user.mycosmetics.joins(:cosmetic)
+                            .where("cosmetics.product_name ILIKE ?", "%#{query}%") # クエリによるフィルタリング
+                            .includes(cosmetic: :brand)
+
+    brand_ids = current_user.mycosmetics
+                            .joins(cosmetic: :brand)
+                            .where("brands.name ILIKE ?", "%#{query}%")
+                            .pluck("brands.id")
+                            .uniq
+
+    @brands = Brand.where(id: brand_ids)
+
+      respond_to do |format|
+        format.js
+      end
   end
 
   private
