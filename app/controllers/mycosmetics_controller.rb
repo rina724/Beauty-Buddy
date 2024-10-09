@@ -19,7 +19,7 @@ class MycosmeticsController < ApplicationController
 
   def index
     @q = Mycosmetic.includes(cosmetic: [ :category, :brand ]).ransack(params[:q])
-    @mycosmetics = @q.result(distinct: true).where(user: current_user)
+    @mycosmetics = @q.result(distinct: true).where(user: current_user).page(params[:page]).per(3)
   end
 
   def edit
