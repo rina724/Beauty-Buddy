@@ -3,7 +3,7 @@ class CosmeticsController < ApplicationController
 
   def index
     @q = Cosmetic.ransack(params[:q])
-    @cosmetics = @q.result(distinct: true).includes(:category, :brand).page(params[:page]).per(3)
+    @cosmetics = @q.result(distinct: true).includes(:category, :brand).page(params[:page])
     @user_mycosmetics = current_user.mycosmetics.pluck(:cosmetic_id)
   end
 
