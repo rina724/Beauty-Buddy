@@ -6,6 +6,6 @@ class CreateCosmeticIngredients < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-    add_index :cosmetic_ingredients, [:cosmetic_id, :ingredient_id], unique: true
+    add_index :cosmetic_ingredients, [ :cosmetic_id, :ingredient_id ], unique: true
   end
 end
