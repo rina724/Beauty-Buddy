@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_05_160816) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_13_172952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,10 +28,18 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_05_160816) do
     t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
+  create_table "cosmetic_ingredients", force: :cascade do |t|
+    t.bigint "cosmetic_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cosmetic_id", "ingredient_id"], name: "index_cosmetic_ingredients_on_cosmetic_id_and_ingredient_id", unique: true
+    t.index ["cosmetic_id"], name: "index_cosmetic_ingredients_on_cosmetic_id"
+    t.index ["ingredient_id"], name: "index_cosmetic_ingredients_on_ingredient_id"
+  end
+
   create_table "cosmetics", force: :cascade do |t|
     t.string "product_name", null: false
-    t.integer "amount", null: false
-    t.string "ingredient", null: false
     t.string "image", null: false
     t.bigint "category_id"
     t.bigint "brand_id"
@@ -75,6 +83,13 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_05_160816) do
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_ingredients_on_name", unique: true
+  end
+
   create_table "mycosmetics", force: :cascade do |t|
     t.boolean "usage_situation"
     t.date "starting_date"
@@ -113,6 +128,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_05_160816) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cosmetic_ingredients", "cosmetics"
+  add_foreign_key "cosmetic_ingredients", "ingredients"
   add_foreign_key "cosmetics", "brands"
   add_foreign_key "cosmetics", "categories"
   add_foreign_key "daily_report_cosmetics", "daily_reports"
