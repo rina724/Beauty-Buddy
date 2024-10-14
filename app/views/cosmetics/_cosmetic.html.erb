@@ -14,9 +14,6 @@
         <p>
           <%= link_to cosmetic.brand.name, '#' %>
         </p>
-        <p>
-          <%= cosmetic.amount %>
-        </p>
         <div class="card-actions justify-end">
         <% if !@user_mycosmetics.include?(cosmetic.id) %>
           <%= link_to "登録", new_mycosmetic_path(cosmetic_id: cosmetic.id), class:"btn bg-beige btn-outline" %>
