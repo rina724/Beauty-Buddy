@@ -1,7 +1,7 @@
 namespace :db do
   desc "Clear all data from specified tables"
   task clear_data: :environment do
-    Daily_report_cosmetics.delete_all
+    DailyReportCosmetic.delete_all
     Mycosmetic.delete_all
     Favorite.delete_all
     Cosmetic.delete_all
