@@ -1,7 +1,7 @@
 namespace :cosme do
   task cosme: :environment do
     sheet = Google::Spreadsheets.new
-    batch_size = 500  # バッチサイズを設定
+    batch_size = 100  # バッチサイズを設定
 
 
     # productsシートからproduct_nameとcosmetic_idを取得
