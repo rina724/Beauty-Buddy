@@ -8,7 +8,7 @@ fi
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare
-  ./bin/rake db:clear_data
+  # ./bin/rake db:clear_data
   ./bin/rake cosme:cosme
 fi
 
