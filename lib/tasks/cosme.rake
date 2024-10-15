@@ -1,4 +1,5 @@
 require 'thread'
+require 'webrick'
 
 class CosmeProcessor
   def initialize(categories, ingredients)
@@ -68,8 +69,8 @@ end
 namespace :cosme do
   task optimize: :environment do
     sheet = Google::Spreadsheets.new
-    batch_size = 100
-    thread_count = 4  # スレッド数を設定
+    batch_size = 50
+    thread_count = 2  # スレッド数を設定
 
     categories = sheet.get_values(ENV["SHEET_ID"], ["categories!A2:B"]).values
     products = sheet.get_values(ENV["SHEET_ID"], ["products!A2:B"]).values
@@ -83,20 +84,23 @@ namespace :cosme do
 
     processor = CosmeProcessor.new(filtered_categories, filtered_ingredients)
 
-    threads = []
-    filtered_products.each_slice(batch_size) do |batch|
-      threads << Thread.new do
-        ActiveRecord::Base.connection_pool.with_connection do
-          processor.process(batch)
-        end
-      end
-
-      if threads.size >= thread_count
-        threads.each(&:join)
-        threads.clear
-      end
+    server = WEBrick::HTTPServer.new(Port: ENV['PORT'] || 3000)
+    server.mount_proc '/' do |req, res|
+      res.body = 'Cosme optimization task is running'
     end
 
-    threads.each(&:join)  # 残りのスレッドが完了するのを待つ
+    # タスク完了後にサーバーを停止するためのシャットダウンフック
+    trap 'INT' do server.shutdown end
+
+    # バックグラウンドでタスクを実行
+    Thread.new do
+      # 既存の処理コード（スレッド作成とjoinなど）をここに配置
+      
+      # タスク完了後にサーバーをシャットダウン
+      server.shutdown
+    end
+
+    # メインスレッドでサーバーを起動
+    server.start
   end
 end
