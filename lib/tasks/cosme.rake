@@ -1,6 +1,8 @@
 namespace :cosme do
   task cosme: :environment do
     sheet = Google::Spreadsheets.new
+    batch_size = 1000  # バッチサイズを設定
+
 
     # productsシートからproduct_nameとcosmetic_idを取得
     products = sheet.get_values(ENV["SHEET_ID"], ["products!A2:B"]).values
@@ -11,16 +13,19 @@ namespace :cosme do
     # ingredientsシートからingredientsを取得
     ingredients = sheet.get_values(ENV["SHEET_ID"], ["ingredients!A2:B"]).values
 
-    # Process products
-    products.each do |cosmetic_id, product_name|
-      next if cosmetic_id.blank?
-      # Fetch brand and image from Rakuten API
-      brand_name, image_url = fetch_from_rakuten(product_name)
+    products.each_slice(batch_size) do |batch|
+      process_batch(batch, categories, ingredients)
+      GC.start  # 各バッチ後にガベージコレクションを実行
+    end
+  end
 
-      # Find or create brand
+  def process_batch(batch, categories, ingredients)
+    batch.each do |cosmetic_id, product_name|
+      next if cosmetic_id.blank?
+
+      brand_name, image_url = fetch_from_rakuten(product_name)
       brand = Brand.find_or_create_by!(name: brand_name)
 
-      # Create or update cosmetic
       cosmetic = Cosmetic.find_or_initialize_by(id: cosmetic_id)
       cosmetic.assign_attributes(
         product_name: product_name,
@@ -28,15 +33,11 @@ namespace :cosme do
         image: image_url
       )
 
-      # Process categories for this cosmetic
       category = process_categories(categories, cosmetic_id)
       cosmetic.category = category if category
 
-      # Save the cosmetic
       if cosmetic.save
         puts "Processed cosmetic: #{product_name}"
-        
-        # Process ingredients for this cosmetic
         process_ingredients(ingredients, cosmetic)
       else
         puts "Failed to process cosmetic: #{product_name}. Errors: #{cosmetic.errors.full_messages.join(', ')}"
