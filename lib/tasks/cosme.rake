@@ -1,7 +1,7 @@
 namespace :cosme do
   task cosme: :environment do
     sheet = Google::Spreadsheets.new
-    batch_size = 100  # バッチサイズを設定
+    batch_size = 50  # バッチサイズを設定
 
     # categoriesシートからcategoryを取得
     categories = sheet.get_values(ENV["SHEET_ID"], ["categories!A2:B"]).values
@@ -9,7 +9,7 @@ namespace :cosme do
     ingredients = sheet.get_values(ENV["SHEET_ID"], ["ingredients!A2:B"]).values
 
     # cosmetic_idが29771以上のデータのみをフィルタリング
-    valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 92981 }.to_set
+    valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 29771 }.to_set
 
     filtered_products = products.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
     filtered_categories = categories.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
@@ -17,8 +17,8 @@ namespace :cosme do
 
     filtered_products.each_slice(batch_size) do |batch|
       process_batch(batch, filtered_categories, filtered_ingredients)
-      GC.start  # 各バッチ後にガベージコレクションを実行
     end
+    GC.start
   end
 
   def process_batch(batch, categories, ingredients)
