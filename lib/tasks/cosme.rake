@@ -1,14 +1,46 @@
+require 'google/apis/sheets_v4'
+require 'uri'
+require 'net/http'
+require 'json'
+
+class Google::Spreadsheets
+  def initialize
+    @service = Google::Apis::SheetsV4::SheetsService.new
+    @service.authorization = authorize
+  end
+
+  def authorize
+    json_key = JSON.generate(
+      private_key: ENV["GOOGLE_PRIVATE_KEY"].gsub("\\n", "\n"),
+      client_email: ENV["GOOGLE_CLIENT_EMAIL"]
+    )
+
+    json_key_io = StringIO.new(json_key)
+
+    authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+      json_key_io: json_key_io,
+      scope: ["https://www.googleapis.com/auth/spreadsheets"]
+    )
+    authorizer.fetch_access_token!
+    authorizer
+  end
+
+  def get_values(spreadsheet_id, range)
+    @service.get_spreadsheet_values(spreadsheet_id, range)
+  end
+end
+
 namespace :cosme do
   task import_products: :environment do
     service = Google::Spreadsheets.new
     spreadsheet_id = ENV['SHEET_ID']
     range = "products!A2:B"
 
-    response = service.get_spreadsheet_values(spreadsheet_id, range)
-    
+    response = service.get_values(spreadsheet_id, range)
+
     response.values.each do |cosmetic_id, product_name|
       next if cosmetic_id.to_i < 29771
-      
+
       Cosmetic.find_or_create_by!(id: cosmetic_id) do |cosmetic|
         cosmetic.product_name = product_name
       end
@@ -22,8 +54,8 @@ namespace :cosme do
     spreadsheet_id = ENV['SHEET_ID']
     range = "categories!A2:B"
 
-    response = service.get_spreadsheet_values(spreadsheet_id, range)
-    
+    response = service.get_values(spreadsheet_id, range)
+
     response.values.each do |cosmetic_id, category_name|
       next if cosmetic_id.to_i < 29771
 
@@ -42,8 +74,8 @@ namespace :cosme do
     spreadsheet_id = ENV['SHEET_ID']
     range = "ingredients!A2:B"
 
-    response = service.get_spreadsheet_values(spreadsheet_id, range)
-    
+    response = service.get_values(spreadsheet_id, range)
+
     response.values.each do |cosmetic_id, ingredient_name|
       next if cosmetic_id.to_i < 29771
 
@@ -62,7 +94,7 @@ namespace :cosme do
       brand_name, image_url = fetch_from_rakuten(cosmetic.product_name)
 
       brand = Brand.find_or_create_by!(name: brand_name)
-      
+
       cosmetic.update(
         brand: brand,
         image: image_url
@@ -77,7 +109,7 @@ namespace :cosme do
     app_id = ENV['RAKUTEN_APP_ID']
     encoded_keyword = URI.encode_www_form_component(product_name)
     url = "https://app.rakuten.co.jp/services/api/Product/Search/20170426?applicationId=#{app_id}&keyword=#{encoded_keyword}"
-    
+
     response = Net::HTTP.get(URI(url))
     result = JSON.parse(response)
 
@@ -86,9 +118,9 @@ namespace :cosme do
 
     if result['Products'] && result['Products'].any?
       product = result['Products'][0]['Product']
-      
+
       brand_name = product['brandName'].presence || product['makerName'].presence || 'Unknown'
-      
+
       image_url = product['mediumImageUrl'] if product['mediumImageUrl'].present?
       image_url = product['smallImageUrl'] if image_url == "25072237.png" && product['smallImageUrl'].present?
     end
