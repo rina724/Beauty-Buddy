@@ -72,5 +72,15 @@ ja:
       good: "良い"
       very_good: "すごく良い"
 
+  users:
+    show:
+      title: アカウント設定
+      name: ユーザー名
+      email: メールアドレス
+      avatar: プロフィール画像
+      edit: 編集
+
+
+
 
 

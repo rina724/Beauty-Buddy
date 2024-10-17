@@ -48,7 +48,7 @@
         </div>
 
         <div class="flex flex-col items-center justify-center pt-6">
-          <%= f.submit "更新", class:"btn bg-beige btn-outline"%>
+          <%= f.submit nil, class:"btn bg-beige btn-outline"%>
         </div>
       <% end %>
     </div>
@@ -59,7 +59,7 @@
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box w-11/12 max-w-5xl">
     <div class="flex flex-col justify-center items-center w-full">
-      <h3 class="font-bold text-lg mb-2">化粧品を選択</h3>
+      <h3 class="font-bold text-lg mb-2"><%= t("daily_reports.new.select_mycosmetic") %></h3>
       <div class="w-full max-h-96 overflow-y-auto">
           <%= collection_select :daily_report, :mycosmetic_id, 
           @mycosmetids_for_daily_use, 
@@ -74,7 +74,7 @@
       %>
       </div>
       <div class="modal-action mt-4">
-        <button class="btn" onclick="addSelectedCosmeticsEdit()">選択完了</button>
+        <button class="btn" onclick="addSelectedCosmeticsEdit()"><%= t("daily_reports.new.select") %></button>
       </div>
     </div>
   </div>

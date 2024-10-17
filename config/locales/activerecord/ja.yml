@@ -9,6 +9,9 @@ ja:
         health: 体調
         daily_report_cosmetics: 今日使った化粧品
         memo: メモ
+      user:
+        name: ユーザー名
+        email: メールアドレス
       
       
   enums:

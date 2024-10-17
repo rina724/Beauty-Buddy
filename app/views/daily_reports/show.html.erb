@@ -6,7 +6,7 @@
     </h2>
 
     <div class="card-body flex items-center">
-      <h3 class="text-xl mt-4"><%= t("daily_reports.show.today_mycosmetic") %></h3>
+      <h3 class="text-xl mt-4"><%= t(".today_mycosmetic") %></h3>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <% @daily_report.mycosmetics.each do |mycosmetic| %>
           <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
@@ -20,7 +20,7 @@
         <% end %>
       </div>
 
-      <h3 class="text-xl mt-4"><%= t("daily_reports.show.health") %></h3>
+      <h3 class="text-xl mt-4"><%= t(".health") %></h3>
         <div class="flex flex-wrap justify-center gap-4">
           <% DailyReport.healths.each do |key, value| %>
             <div class="flex flex-col items-center p-2 rounded-lg bg-white
@@ -32,14 +32,14 @@
         </div>
 
 
-      <h3 class="text-xl mt-4"><%= t("daily_reports.show.memo") %></h3>
+      <h3 class="text-xl mt-4"><%= t(".memo") %></h3>
       <div class="border w-full max-w-[500px] md:min-w-[500px] p-5 rounded-lg break-all">
         <%= @daily_report.memo %>
       </div>
 
       <div class="flex justify-center gap-6 pt-10">
-        <%= link_to t("daily_reports.show.edit"), edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
-        <%= link_to t("daily_reports.show.delete"), daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline"%>
+        <%= link_to t(".edit"), edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
+        <%= link_to t(".delete"), daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline"%>
       </div>
     </div>
   </div>
