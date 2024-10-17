@@ -4,9 +4,9 @@ namespace :cosme do
     batch_size = 100  # バッチサイズを設定
 
     # categoriesシートからcategoryを取得
-    categories = sheet.get_values(ENV["SHEET_ID"], ["categories!A2:B"]).values
-    products = sheet.get_values(ENV["SHEET_ID"], ["products!A2:B"]).values
-    ingredients = sheet.get_values(ENV["SHEET_ID"], ["ingredients!A2:B"]).values
+    categories = sheet.get_values(ENV["SHEET_ID"], [ "categories!A2:B" ]).values
+    products = sheet.get_values(ENV["SHEET_ID"], [ "products!A2:B" ]).values
+    ingredients = sheet.get_values(ENV["SHEET_ID"], [ "ingredients!A2:B" ]).values
 
     # cosmetic_idが29771以上のデータのみをフィルタリング
     valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 29771 }.to_set
@@ -50,28 +50,28 @@ namespace :cosme do
   end
 
   def fetch_from_rakuten(product_name)
-    app_id = ENV['RAKUTEN_APP_ID']
+    app_id = ENV["RAKUTEN_APP_ID"]
     encoded_keyword = URI.encode_www_form_component(product_name)
     url = "https://app.rakuten.co.jp/services/api/Product/Search/20170426?applicationId=#{app_id}&keyword=#{encoded_keyword}"
-    
+
     response = Net::HTTP.get(URI(url))
     result = JSON.parse(response)
 
-    brand_name = 'Unknown'
+    brand_name = "Unknown"
     image_url = "25072237.png"
-  
-    if result['Products'] && result['Products'].any?
-      product = result['Products'][0]['Product']
-      
+
+    if result["Products"] && result["Products"].any?
+      product = result["Products"][0]["Product"]
+
       # ブランド名の取得
-      brand_name = product['brandName'].presence || product['makerName'].presence || 'Unknown'
-      
+      brand_name = product["brandName"].presence || product["makerName"].presence || "Unknown"
+
       # 画像URLの取得
-      image_url = product['mediumImageUrl'] if product['mediumImageUrl'].present?
-      image_url = product['smallImageUrl'] if image_url == "25072237.png" && product['smallImageUrl'].present?
+      image_url = product["mediumImageUrl"] if product["mediumImageUrl"].present?
+      image_url = product["smallImageUrl"] if image_url == "25072237.png" && product["smallImageUrl"].present?
     end
-  
-    [brand_name, image_url]
+
+    [ brand_name, image_url ]
   end
 
   def process_categories(categories, cosmetic_id)
