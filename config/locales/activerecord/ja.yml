@@ -1,2 +1,15 @@
 ja:
   activerecord:
+    attributes:
+      mycosmetic:
+        usage_situation:
+          true: "利用している"
+          false: "利用していない"
+      
+      
+  enums:
+    mycosmetic:
+      problem:
+          good: 問題ない
+          normal: どちらでもない
+          bad: 問題がある

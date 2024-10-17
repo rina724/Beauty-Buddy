@@ -1,5 +1,5 @@
-<div class="bg-cream wrap">
-  <h1 class="font-gen text-3xl md:text-4xl pt-5 px-5">マイコスメ一覧</h1>
+<div class="bg-cream p-5 wrap">
+  <h1 class="font-gen text-3xl md:text-4xl pt-3"><%= t('.title') %></h1>
   <div class="flex items-center justify-center m-2">
     <!-- 検索フォーム -->
     <%= render 'search', q: @q, url: mycosmetics_path %>
@@ -29,33 +29,33 @@
           </p>
 
           <p>
-            現在利用しているか:  <%= mycosmetic.usage_situation %>
+            <%= t('cosmetics.show.usage_situation') %> <%= t('activerecord.attributes.mycosmetic.usage_situation')[mycosmetic.usage_situation] %>
           </p>
 
           <p>
-            利用開始日: <%= mycosmetic.starting_date %>
+            <%= t('cosmetics.show.starting_date') %> <%= mycosmetic.starting_date %>
           </p>
 
           <p>
-            利用時の問題: <%= mycosmetic.problem %>
+            <%= t('cosmetics.show.problem') %> <%= mycosmetic.problem_i18n %>
           </p>
 
           <p>
-            メモ: <%= mycosmetic.memo %>
+            <%= t('cosmetics.show.memo') %> <%= mycosmetic.memo %>
           </p>
 
           <div class="card-actions justify-end">
-            <%= link_to "編集", edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
-            <%= link_to "削除", mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
+            <%= link_to t("mycosmetics.index.edit"), edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
+            <%= link_to t("mycosmetics.index.delete"), mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
             <%= render 'cosmetics/favorite_buttons', { cosmetic: mycosmetic.cosmetic } %>
           </div>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
 
-  <div class="flex justify-center pb-5">
+  <div class="flex justify-center">
     <%= paginate @mycosmetics %>
   </div>
-
 </div>

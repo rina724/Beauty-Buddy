@@ -138,6 +138,8 @@ GEM
       dotenv (= 3.1.4)
       railties (>= 6.1)
     drb (2.2.1)
+    enum_help (0.0.19)
+      activesupport (>= 3.0.0)
     erubi (1.13.0)
     excon (0.111.0)
     faraday (2.11.0)
@@ -456,6 +458,7 @@ DEPENDENCIES
   devise
   devise-i18n
   dotenv-rails
+  enum_help
   fog-aws
   google-api-client (~> 0.53.0)
   googleauth

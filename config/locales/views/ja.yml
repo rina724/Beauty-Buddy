@@ -20,7 +20,7 @@ ja:
   footer:
     terms_of_service: 利用規約
     privacy_policy: プライバシーポリシー
-    contact: コンタクト
+    contact: お問い合わせ
 
   cosmetics:
     index:
@@ -32,8 +32,24 @@ ja:
       title: 化粧品詳細
       mycosmetic: マイコスメ登録内容
       edit: 編集
-      usage_situation: "現在利用しているか:"
-      starting_date: "利用開始日:"
-      problem: "利用時の問題:"
-      memo: "メモ:"
+      usage_situation: "現在利用しているか："
+      starting_date: "利用開始日："
+      problem: "利用時の問題："
+      memo: "メモ："
+
+  mycosmetics:
+    new:
+      title: マイコスメ登録
+      usage_situation: 現在利用しているか
+      starting_date: 利用開始日
+      problem: 利用時の問題
+      memo: メモ
+    index:
+      title: マイコスメ一覧
+      edit: 編集
+      delete: 削除
+    edit:
+      title: マイコスメ編集
+
+
 
