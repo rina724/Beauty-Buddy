@@ -1,51 +1,78 @@
 namespace :cosme do
-  task cosme: :environment do
-    sheet = Google::Spreadsheets.new
-    batch_size = 100  # バッチサイズを設定
+  task import_products: :environment do
+    service = Google::Apis::SheetsV4::SheetsService.new
+    service.key = ENV['GOOGLE_SHEETS_API_KEY']
+    spreadsheet_id = ENV['SHEET_ID']
+    range = "products!A2:B"
 
-    # categoriesシートからcategoryを取得
-    categories = sheet.get_values(ENV["SHEET_ID"], ["categories!A2:B"]).values
-    products = sheet.get_values(ENV["SHEET_ID"], ["products!A2:B"]).values
-    ingredients = sheet.get_values(ENV["SHEET_ID"], ["ingredients!A2:B"]).values
-
-    # cosmetic_idが29771以上のデータのみをフィルタリング
-    valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 29771 }.to_set
-
-    filtered_products = products.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
-    filtered_categories = categories.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
-    filtered_ingredients = ingredients.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
-
-    filtered_products.each_slice(batch_size) do |batch|
-      process_batch(batch, filtered_categories, filtered_ingredients)
-      GC.start  # 各バッチ後にガベージコレクションを実行
+    response = service.get_spreadsheet_values(spreadsheet_id, range)
+    
+    response.values.each do |cosmetic_id, product_name|
+      next if cosmetic_id.to_i < 29771
+      
+      Cosmetic.find_or_create_by!(id: cosmetic_id) do |cosmetic|
+        cosmetic.product_name = product_name
+      end
     end
+
+    puts "Imported #{Cosmetic.count} products"
   end
 
-  def process_batch(batch, categories, ingredients)
-    batch.each do |cosmetic_id, product_name|
-      next if cosmetic_id.blank?
+  task import_categories: :environment do
+    service = Google::Apis::SheetsV4::SheetsService.new
+    service.key = ENV['GOOGLE_SHEETS_API_KEY']
+    spreadsheet_id = ENV['SHEET_ID']
+    range = "categories!A2:B"
 
-      puts "Processing cosmetic_id: #{cosmetic_id}"  # デバッグ用出力
+    response = service.get_spreadsheet_values(spreadsheet_id, range)
+    
+    response.values.each do |cosmetic_id, category_name|
+      next if cosmetic_id.to_i < 29771
 
-      brand_name, image_url = fetch_from_rakuten(product_name)
+      cosmetic = Cosmetic.find_by(id: cosmetic_id)
+      next unless cosmetic
+
+      category = Category.find_or_create_by!(name: category_name)
+      cosmetic.update(category: category)
+    end
+
+    puts "Imported categories for #{Cosmetic.where.not(category_id: nil).count} products"
+  end
+
+  task import_ingredients: :environment do
+    service = Google::Apis::SheetsV4::SheetsService.new
+    service.key = ENV['GOOGLE_SHEETS_API_KEY']
+    spreadsheet_id = ENV['SHEET_ID']
+    range = "ingredients!A2:B"
+
+    response = service.get_spreadsheet_values(spreadsheet_id, range)
+    
+    response.values.each do |cosmetic_id, ingredient_name|
+      next if cosmetic_id.to_i < 29771
+
+      cosmetic = Cosmetic.find_by(id: cosmetic_id)
+      next unless cosmetic
+
+      ingredient = Ingredient.find_or_create_by!(name: ingredient_name)
+      CosmeticIngredient.find_or_create_by!(cosmetic: cosmetic, ingredient: ingredient)
+    end
+
+    puts "Imported ingredients for #{Cosmetic.joins(:cosmetic_ingredients).distinct.count} products"
+  end
+
+  task fetch_rakuten_info: :environment do
+    Cosmetic.find_each do |cosmetic|
+      brand_name, image_url = fetch_from_rakuten(cosmetic.product_name)
+
       brand = Brand.find_or_create_by!(name: brand_name)
-
-      cosmetic = Cosmetic.find_or_initialize_by(id: cosmetic_id)
-      cosmetic.assign_attributes(
-        product_name: product_name,
+      
+      cosmetic.update(
         brand: brand,
         image: image_url
       )
 
-      category = process_categories(categories, cosmetic_id)
-      cosmetic.category = category if category
-
-      if cosmetic.save
-        puts "Processed cosmetic: #{product_name}"
-        process_ingredients(ingredients, cosmetic)
-      else
-        puts "Failed to process cosmetic: #{product_name}. Errors: #{cosmetic.errors.full_messages.join(', ')}"
-      end
+      puts "Updated Rakuten info for product: #{cosmetic.product_name}"
+      sleep 1  # APIレート制限を考慮して1秒待機
     end
   end
 
@@ -59,30 +86,16 @@ namespace :cosme do
 
     brand_name = 'Unknown'
     image_url = "25072237.png"
-  
+
     if result['Products'] && result['Products'].any?
       product = result['Products'][0]['Product']
       
-      # ブランド名の取得
       brand_name = product['brandName'].presence || product['makerName'].presence || 'Unknown'
       
-      # 画像URLの取得
       image_url = product['mediumImageUrl'] if product['mediumImageUrl'].present?
       image_url = product['smallImageUrl'] if image_url == "25072237.png" && product['smallImageUrl'].present?
     end
-  
+
     [brand_name, image_url]
-  end
-
-  def process_categories(categories, cosmetic_id)
-    category_name = categories.find { |id, _| id == cosmetic_id.to_s }&.last
-    Category.find_or_create_by(name: category_name) if category_name
-  end
-
-  def process_ingredients(ingredients, cosmetic)
-    ingredients.select { |id, _| id == cosmetic.id.to_s }.each do |_, ingredient_name|
-      ingredient = Ingredient.find_or_create_by!(name: ingredient_name)
-      CosmeticIngredient.find_or_create_by!(cosmetic: cosmetic, ingredient: ingredient)
-    end
   end
 end

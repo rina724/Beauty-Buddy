@@ -8,6 +8,10 @@ fi
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
   ./bin/rails db:prepare
+  ./bin/rake cosme:import_products
+  ./bin/rake cosme:import_categories
+  ./bin/rake cosme:import_ingredients
+  ./bin/rake cosme:fetch_rakuten_info
 fi
 
 exec "${@}"
