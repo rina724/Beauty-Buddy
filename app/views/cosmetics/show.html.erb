@@ -1,4 +1,4 @@
-<div class="bg-cream">
+<div class="bg-cream wrap">
   <div class="flex-col items-center p-5">
   <h1 class="font-gen text-4xl p-3 text-center">化粧品詳細</h1>
     <div class="card md:card-side bg-base-100 flex items-center">
@@ -14,10 +14,9 @@
           <%= link_to @cosmetic.brand.name, '#' %>
         </p>
         <p>
-          <%= @cosmetic.amount %>
-        </p>
-        <p>
-          <%= @cosmetic.ingredient %>
+          <% @cosmetic.ingredients.each do |ingredient| %>
+            <%= ingredient.name %>
+          <% end %>
         </p>
 
       <% if @mycosmetic %>
