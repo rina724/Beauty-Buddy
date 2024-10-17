@@ -2,7 +2,7 @@
   <%= f.hidden_field :start_time, value: @date %>
 
   <div class="form-control py-3">
-    <%= f.label :mycosmetic_id, "今日使った化粧品", class: "text-lg" %>
+    <%= f.label :daily_report_cosmetics, class: "text-lg" %>
     <div id="selected-cosmetics" class="mt-2 flex flex-wrap gap-2 shrink">
       <%= f.fields_for :daily_report_cosmetics do |dcf| %>
         <% if dcf.object.mycosmetic %>
@@ -17,20 +17,20 @@
     </div>
     <div class="text-center">
       <button type="button" class="btn btn-outline bg-beige my-3 w-40 items-center" onclick="window.my_modal_3.showModal()">
-        化粧品を選ぶ
+        <%= t("daily_reports.new.select_mycosmetic") %>
       </button>
     </div>
   </div>
 
   <div class="form-control py-3">
-    <%= f.label :health, "体調", class: "text-lg" %>
+    <%= f.label :health, class: "text-lg" %>
     <div class="flex flex-wrap justify-center gap-4">
       <% DailyReport.healths.each do |key, value| %>
         <div>
           <%= f.radio_button :health, key, class: "peer", style: "display: none;" %>
-          <label class="flex flex-col items-center p-2 rounded-lg cursor-pointer bg-white hover:bg-gray" for="daily_report_health_<%= key %>">
+          <label class="flex flex-col items-center  p-2 rounded-lg cursor-pointer bg-white hover:bg-gray-100" for="daily_report_health_<%= key %>">
             <%= image_tag "health_icons/#{key}.svg", alt: key.humanize, class: "w-12 h-12 mb-2 icon" %>
-            <span class="text-sm text"><%= key.humanize %></span>
+            <span class="text-sm text"><%= t("daily_report.health.#{key}") %></span>
           </label>
         </div>
       <% end %>
@@ -38,7 +38,7 @@
   </div>
 
   <div class="form-group flex-col py-3">
-    <%= f.label :memo, "メモ" , class: "text-lg"%>
+    <%= f.label :memo, class: "text-lg"%>
     <%= f.text_area :memo, class: "form-control rounded outline outline-gray w-full" %>
   </div>
 
@@ -51,7 +51,7 @@
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box w-11/12 max-w-5xl">
     <div class="flex flex-col justify-center items-center w-full">
-      <h3 class="font-bold text-lg mb-2">化粧品を選択</h3>
+      <h3 class="font-bold text-lg mb-2"><%= t("daily_reports.new.select_mycosmetic") %></h3>
       <div class="w-full max-h-96 overflow-y-auto">
         <%= collection_select :daily_report, :mycosmetic_id, 
           mycosmetids_for_daily_use, 
@@ -66,7 +66,7 @@
         %>
       </div>
       <div class="modal-action mt-4">
-        <button class="btn" onclick="addSelectedCosmetics()">選択完了</button>
+        <button class="btn" onclick="addSelectedCosmetics()"><%= t("daily_reports.new.select") %></button>
       </div>
     </div>
   </div>
