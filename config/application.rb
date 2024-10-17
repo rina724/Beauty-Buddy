@@ -20,8 +20,8 @@ module Myapp
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
+    # タイムゾーンを日本時間に設定
+    config.time_zone = "Asia/Tokyo"
     # config.eager_load_paths << Rails.root.join("extras")
     config.paths.add "lib", eager_load: true
 
@@ -31,5 +31,7 @@ module Myapp
       g.helper false
       g.test_framework nil
     end
+
+    config.i18n.default_locale = :ja
   end
 end

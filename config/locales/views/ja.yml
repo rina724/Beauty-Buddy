@@ -1,0 +1,94 @@
+ja:
+  helper:
+    submit:
+      create: 登録する
+      update: 更新する
+      save: 保存する
+      edit: 編集する
+      destroy: 削除する
+    
+  header:
+    login: ログイン
+    logout: ログアウト
+    sign_up: 新規登録
+    cosme_index: コスメ一覧
+    calendar: カレンダー
+    profile: プロフィール
+    setting: アカウント設定
+    mycosme: マイコスメ
+
+  footer:
+    terms_of_service: 利用規約
+    privacy_policy: プライバシーポリシー
+    contact: お問い合わせ
+
+  cosmetics:
+    index:
+      title: コスメ一覧
+      create: 登録
+      select_category: カテゴリーを選択
+      search: 検索
+    show:
+      title: 化粧品詳細
+      mycosmetic: マイコスメ登録内容
+      edit: 編集
+      usage_situation: "現在利用しているか："
+      starting_date: "利用開始日："
+      problem: "利用時の問題："
+      memo: "メモ："
+
+  mycosmetics:
+    new:
+      title: マイコスメ登録
+    index:
+      title: マイコスメ一覧
+      edit: 編集
+      delete: 削除
+    edit:
+      title: マイコスメ編集
+
+  daily_reports:
+    index:
+      title: カレンダー
+    new:
+      title: デイリー入力
+      select_mycosmetic: 化粧品を選択
+      select: 選択完了
+    edit:
+      title: デイリー入力編集
+    show:
+      title: デイリー登録内容
+      today_mycosmetic: 今日使った化粧品
+      health: 体調
+      memo: メモ
+      edit: 編集
+      delete: 削除
+
+  daily_report:
+    health:
+      very_bad: "すごく悪い"
+      bad: "悪い"
+      normal: "普通"
+      good: "良い"
+      very_good: "すごく良い"
+
+  users:
+    show:
+      title: アカウント設定
+      name: ユーザー名
+      email: メールアドレス
+      avatar: プロフィール画像
+      edit: 編集
+
+  profiles:
+    index:
+      title: プロフィール
+      allergy: アレルギー反応が出る成分
+      caution: 注意する成分
+      select_allergy: アレルギー成分の登録
+
+
+
+
+
+

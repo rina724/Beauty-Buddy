@@ -1,13 +1,13 @@
-<div class="bg-cream wrap">
-  <h1 class="font-gen text-2xl px-5 pt-10 text-center lg:text-3xl">デイリー編集</h1>
-  <div class="bg-base-100 mx-10 my-6 items-center">
-    <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
+<div class="bg-cream p-5 wrap">
+  <h1 class="font-gen text-center text-3xl md:text-4xl py-5"><%= t('.title') %></h1>
+  <div class="card bg-base-100 mx-5 my-6 items-center">
+  <h2 class="card-title flex items-center justify-center text-2xl bg-gray-100 py-5 w-full rounded-lg"><%= @date.strftime('%Y年%m月%d日') %></h2>
     <div class="card-body flex items-center">
       <%= form_with(model: @daily_report, local: true, method: :patch, class: 'edit-daily-report-form') do |f| %>
         <%= f.hidden_field :start_time, value: @date %>
         
         <div class="form-control py-3">
-          <%= f.label :mycosmetic_id, "今日使った化粧品", class: "text-lg" %>
+          <%= f.label :daily_report_cosmetics, class: "text-lg" %>
           <div id="selected-cosmetics" class="mt-2 flex flex-wrap gap-2 shrink">
             <%= f.fields_for :daily_report_cosmetics do |dcf| %>
               <% if dcf.object.mycosmetic %>
@@ -28,14 +28,14 @@
         </div>
 
         <div class="form-control py-3">
-          <%= f.label :health, "体調", class: "text-lg" %>
+          <%= f.label :health, class: "text-lg" %>
           <div class="flex flex-wrap justify-center gap-4">
             <% DailyReport.healths.each do |key, value| %>
               <div>
                 <%= f.radio_button :health, key, class: "peer", style: "display: none;" %>
                 <label class="flex flex-col items-center p-2 rounded-lg cursor-pointer bg-white hover:bg-gray" for="daily_report_health_<%= key %>">
-                  <%= image_tag "health_icons/#{key}.svg", alt: key.humanize, class: "w-12 h-12 mb-2 icon" %>
-                  <span class="text-sm text"><%= key.humanize %></span>
+                  <%= image_tag "health_icons/#{key}.svg", alt: t("daily_report.health.#{key}"), class: "w-12 h-12 mb-2 icon" %>
+                  <span class="text-sm text"><%= t("daily_report.health.#{key}") %></span>
                 </label>
               </div>
             <% end %>
@@ -43,12 +43,12 @@
         </div>
 
         <div class="form-group flex-col py-3">
-          <%= f.label :memo, "メモ" , class: "text-lg"%>
+          <%= f.label :memo, class: "text-lg"%>
           <%= f.text_area :memo, class: "form-control rounded outline outline-gray w-full" %>
         </div>
 
         <div class="flex flex-col items-center justify-center pt-6">
-          <%= f.submit "更新", class:"btn bg-beige btn-outline"%>
+          <%= f.submit nil, class:"btn bg-beige btn-outline"%>
         </div>
       <% end %>
     </div>
@@ -59,7 +59,7 @@
 <dialog id="my_modal_3" class="modal">
   <div class="modal-box w-11/12 max-w-5xl">
     <div class="flex flex-col justify-center items-center w-full">
-      <h3 class="font-bold text-lg mb-2">化粧品を選択</h3>
+      <h3 class="font-bold text-lg mb-2"><%= t("daily_reports.new.select_mycosmetic") %></h3>
       <div class="w-full max-h-96 overflow-y-auto">
           <%= collection_select :daily_report, :mycosmetic_id, 
           @mycosmetids_for_daily_use, 
@@ -74,7 +74,7 @@
       %>
       </div>
       <div class="modal-action mt-4">
-        <button class="btn" onclick="addSelectedCosmeticsEdit()">選択完了</button>
+        <button class="btn" onclick="addSelectedCosmeticsEdit()"><%= t("daily_reports.new.select") %></button>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@
       <div class="size-48 p-3">
         <%= image_tag cosmetic.image, class: "object-contain w-full h-full"%>
       </div>
-      <div class="card-body w-[calc(100%_-_192px)]">
+      <div class="card-body w-[calc(100%_-_150px)] md:w-[calc(100%_-_192px)]">
         <h2 class="card-title">
           <%= link_to cosmetic.product_name, cosmetic_path(cosmetic) %>
         </h2>
@@ -16,7 +16,7 @@
         </p>
         <div class="card-actions justify-end">
         <% if !@user_mycosmetics.include?(cosmetic.id) %>
-          <%= link_to "登録", new_mycosmetic_path(cosmetic_id: cosmetic.id), class:"btn bg-beige btn-outline" %>
+          <%= link_to t('cosmetics.index.create'), new_mycosmetic_path(cosmetic_id: cosmetic.id), class:"btn bg-beige btn-outline" %>
           <% end %>
           <%= render 'favorite_buttons', { cosmetic: cosmetic } %>
         </div>

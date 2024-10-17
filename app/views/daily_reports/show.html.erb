@@ -1,9 +1,12 @@
-<div class="bg-cream wrap">
-  <h1 class="font-gen text-2xl px-5 pt-10 text-center lg:text-3xl">デイリー入力</h1>
-  <div class="bg-base-100 mx-10 my-6 items-center">
-    <h2 class="text-2xl text-center bg-gray py-4"><%= @date.strftime('%Y年%m月%d日') %></h2>
+<div class="bg-cream p-5 wrap">
+  <h1 class="font-gen text-center text-3xl md:text-4xl py-5"><%= t('.title') %></h1>
+  <div class="card bg-base-100 mx-5 my-6 items-center">
+    <h2 class="card-title flex items-center justify-center text-2xl bg-gray-100 py-5 w-full rounded-lg">
+      <%= @date.strftime('%Y年%m月%d日') %>
+    </h2>
+
     <div class="card-body flex items-center">
-      <h3 class="text-xl mt-4">今日使った化粧品</h3>
+      <h3 class="text-xl mt-4"><%= t(".today_mycosmetic") %></h3>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <% @daily_report.mycosmetics.each do |mycosmetic| %>
           <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
@@ -17,26 +20,26 @@
         <% end %>
       </div>
 
-      <h3 class="text-xl mt-4">体調</h3>
+      <h3 class="text-xl mt-4"><%= t(".health") %></h3>
         <div class="flex flex-wrap justify-center gap-4">
           <% DailyReport.healths.each do |key, value| %>
             <div class="flex flex-col items-center p-2 rounded-lg bg-white
               <%= 'selected-health' if @daily_report.health == key %>">
-              <%= image_tag "health_icons/#{key}.svg", alt: key.humanize, class: "w-12 h-12 mb-2 icon" %>
-              <span class="text-sm"><%= key.humanize %></span>
+              <%= image_tag "health_icons/#{key}.svg", alt: t("daily_report.health.#{key}"), class: "w-12 h-12 mb-2 icon" %>
+              <span class="text-sm"><%= t("daily_report.health.#{key}") %></span>
             </div>
           <% end %>
         </div>
 
 
-      <h3 class="text-xl mt-4">メモ</h3>
+      <h3 class="text-xl mt-4"><%= t(".memo") %></h3>
       <div class="border w-full max-w-[500px] md:min-w-[500px] p-5 rounded-lg break-all">
         <%= @daily_report.memo %>
       </div>
 
       <div class="flex justify-center gap-6 pt-10">
-        <%= link_to "編集", edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
-        <%= link_to "削除", daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline"%>
+        <%= link_to t(".edit"), edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
+        <%= link_to t(".delete"), daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline"%>
       </div>
     </div>
   </div>
