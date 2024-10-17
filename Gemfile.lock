@@ -131,6 +131,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.12.1)
+      devise (>= 4.9.0)
     dotenv (3.1.4)
     dotenv-rails (3.1.4)
       dotenv (= 3.1.4)
@@ -315,6 +317,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-i18n (7.0.9)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     railties (7.2.1)
       actionpack (= 7.2.1)
       activesupport (= 7.2.1)
@@ -449,6 +454,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   devise
+  devise-i18n
   dotenv-rails
   fog-aws
   google-api-client (~> 0.53.0)
@@ -459,6 +465,7 @@ DEPENDENCIES
   pg (~> 1.5)
   puma (>= 5.0)
   rails (~> 7.2.1)
+  rails-i18n
   rakuten_web_service
   ransack
   rubocop-rails-omakase

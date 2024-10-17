@@ -1,0 +1,21 @@
+ja:
+  helper:
+    submit:
+      create: 登録する
+      update: 更新する
+      save: 保存する
+      edit: 編集する
+      destroy: 削除する
+    
+  header:
+    login: ログイン
+    logout: ログアウト
+    sign_up: 新規登録
+    cosme_index: コスメ一覧
+    calendar: カレンダー
+    profile: プロフィール
+    setting: アカウント設定
+    mycosme: マイコスメ
+
+
+

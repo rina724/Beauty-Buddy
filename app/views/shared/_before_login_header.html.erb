@@ -3,7 +3,7 @@
         <%= link_to image_tag('logo2.png', class: "w-32 md:w-60 lg:w-64"), '/' %>
   </div>
   <div class="flex-none">
-    <%= link_to 'login', new_user_session_path, class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-2" %>
-    <%= link_to 'signup', new_user_registration_path , class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-4" %>
+    <%= link_to t("header.login"), new_user_session_path, class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-2" %>
+    <%= link_to t("header.sign_up"), new_user_registration_path , class: "btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-cream btn-outline mr-4" %>
   </div>
 </header>
