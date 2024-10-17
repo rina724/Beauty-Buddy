@@ -16,7 +16,7 @@
         </p>
         <div class="card-actions justify-end">
         <% if !@user_mycosmetics.include?(cosmetic.id) %>
-          <%= link_to "登録", new_mycosmetic_path(cosmetic_id: cosmetic.id), class:"btn bg-beige btn-outline" %>
+          <%= link_to t('cosmetics.index.create'), new_mycosmetic_path(cosmetic_id: cosmetic.id), class:"btn bg-beige btn-outline" %>
           <% end %>
           <%= render 'favorite_buttons', { cosmetic: cosmetic } %>
         </div>

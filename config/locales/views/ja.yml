@@ -17,5 +17,23 @@ ja:
     setting: アカウント設定
     mycosme: マイコスメ
 
+  footer:
+    terms_of_service: 利用規約
+    privacy_policy: プライバシーポリシー
+    contact: コンタクト
 
+  cosmetics:
+    index:
+      title: コスメ一覧
+      create: 登録
+      select_category: カテゴリーを選択
+      search: 検索
+    show:
+      title: 化粧品詳細
+      mycosmetic: マイコスメ登録内容
+      edit: 編集
+      usage_situation: "現在利用しているか:"
+      starting_date: "利用開始日:"
+      problem: "利用時の問題:"
+      memo: "メモ:"
 
