@@ -9,7 +9,7 @@ namespace :cosme do
     ingredients = sheet.get_values(ENV["SHEET_ID"], ["ingredients!A2:B"]).values
 
     # cosmetic_idが29771以上のデータのみをフィルタリング
-    valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 114707 }.to_set
+    valid_cosmetic_ids = categories.map { |id, _| id.to_i }.select { |id| id >= 29771 }.to_set
 
     filtered_products = products.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
     filtered_categories = categories.select { |id, _| valid_cosmetic_ids.include?(id.to_i) }
