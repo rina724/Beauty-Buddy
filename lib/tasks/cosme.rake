@@ -1,3 +1,7 @@
+require 'google/apis/sheets_v4'
+require 'net/http'
+require 'json'
+
 namespace :cosme do
   task import_products: :environment do
     service = Google::Apis::SheetsV4::SheetsService.new
