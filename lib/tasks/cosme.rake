@@ -1,10 +1,6 @@
-require 'google/apis/sheets_v4'
-require 'net/http'
-require 'json'
-
 namespace :cosme do
   task import_products: :environment do
-    service = Google::Apis::SheetsV4::SheetsService.new
+    service = Google::Spreadsheets.new
     service.key = ENV['GOOGLE_SHEETS_API_KEY']
     spreadsheet_id = ENV['SHEET_ID']
     range = "products!A2:B"
@@ -23,7 +19,7 @@ namespace :cosme do
   end
 
   task import_categories: :environment do
-    service = Google::Apis::SheetsV4::SheetsService.new
+    service = Google::Spreadsheets.new
     service.key = ENV['GOOGLE_SHEETS_API_KEY']
     spreadsheet_id = ENV['SHEET_ID']
     range = "categories!A2:B"
@@ -44,7 +40,7 @@ namespace :cosme do
   end
 
   task import_ingredients: :environment do
-    service = Google::Apis::SheetsV4::SheetsService.new
+    service = Google::Spreadsheets.new
     service.key = ENV['GOOGLE_SHEETS_API_KEY']
     spreadsheet_id = ENV['SHEET_ID']
     range = "ingredients!A2:B"
