@@ -80,6 +80,14 @@ ja:
       avatar: プロフィール画像
       edit: 編集
 
+  profiles:
+    index:
+      title: プロフィール
+      allergy: アレルギー反応が出る成分
+      caution: 注意する成分
+      select_allergy: アレルギー成分の登録
+
+
 
 
 
