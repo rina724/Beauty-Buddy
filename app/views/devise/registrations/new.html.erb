@@ -1,5 +1,5 @@
-<div class="wrap bg-cream">
-  <h2 class="text-center text-2xl md:text-4xl lg:text-5xl py-7"><%= t('.title') %></h2>
+<div class="wrap bg-cream p-3">
+  <h2 class="font-gen text-center text-3xl md:text-4xl py-7"><%= t('.title') %></h2>
 
   <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
@@ -44,8 +44,8 @@
         </svg>
         <%= f.password_field :password, autocomplete: "new-password", class: "grow text-sm", placeholder: "Password" %>
           <% if @minimum_password_length %>
-          <em class="text-sm">(<%= @minimum_password_length %> characters minimum )</em>
-        <% end %>
+            <em class="text-sm"><%= t("devise.shared.minimum_password_length", count: @minimum_password_length) %></em>
+          <% end %>
       </label>
 
       <label class="input input-bordered flex items-center gap-2 mb-4 w-3/4">
@@ -61,13 +61,13 @@
         </svg>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "grow text-sm", placeholder: "Password_confirmation" %>
         <% if @minimum_password_length %>
-          <em class="text-sm">(<%= @minimum_password_length %> characters minimum )</em>
+        <em class="text-sm"><%= t("devise.shared.minimum_password_length", count: @minimum_password_length) %></em>
         <% end %>
       </label>
     </div>
 
     <div class="flex flex-col items-center justify-center py-5">
-      <button class="btn btn-sm sm:btn-sm md:btn-md lg:btn-lg bg-beige btn-outline">
+      <button class="btn btn-md bg-beige btn-outline">
         <%= f.submit nil %>
       </button>
     </div>

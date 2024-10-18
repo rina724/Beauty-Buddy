@@ -96,7 +96,7 @@ ja:
         cancel_my_account: アカウント削除
         currently_waiting_confirmation_for_email: "%{email} の確認待ち"
         leave_blank_if_you_don_t_want_to_change_it: 空欄のままなら変更しません
-        title: "%{resource}編集"
+        title: "ユーザー編集"
         unhappy: 気に入りません
         update: 更新
         we_need_your_current_password_to_confirm_your_changes: 変更を反映するには現在のパスワードを入力してください
@@ -126,7 +126,7 @@ ja:
         sign_in: ログイン
         sign_in_with_provider: "%{provider}でログイン"
         sign_up: アカウント登録
-      minimum_password_length: "（%{count}字以上）"
+      minimum_password_length: "（%{count}文字以上）"
     unlocks:
       new:
         resend_unlock_instructions: アカウントのロック解除方法を再送する
