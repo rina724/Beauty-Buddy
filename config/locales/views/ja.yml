@@ -6,7 +6,18 @@ ja:
       save: 保存する
       edit: 編集する
       destroy: 削除する
-    
+
+  defaults:
+    delete_confirm: 削除しますか？
+    flash_message:
+      require_login: ログインしてください
+      created: "%{item}を登録しました"
+      not_created: "%{item}を登録出来ませんでした"
+      updated: "%{item}を更新しました"
+      not_updated: "%{item}を更新出来ませんでした"
+      destroyed: "%{item}を削除しました"
+      cannot_be_accessed: このページにはアクセスできません
+
   header:
     login: ログイン
     logout: ログアウト
