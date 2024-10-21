@@ -19,17 +19,16 @@ class ProfilesController < ApplicationController
     # 成分をカウントする
     ingredient_count = Hash.new(0)
     @user_bad_mycosmetics.each do |my_cosmetic|
-      cosmetic = my_cosmetic.cosmetic
-      ingredients = cosmetic.ingredient.split(",")
-      ingredients.each do |ingredient|
-        ingredient_count[ingredient.strip] += 1
+      my_cosmetic.cosmetic.ingredients.each do |ingredient|
+        ingredient_count[ingredient.name] += 1
       end
     end
 
-    # ５回重複している成分
-    @caution_ingredients = ingredient_count.select { |_, count| count >= 5 }.keys
+    # ５回以上重複している成分
+    @caution_ingredients = ingredient_count.select { |_, count| count >= 2 }.keys
+
     # プロフィールの注意する成分を上書き
-    @current_user_profile && @current_user_profile.update(caution: @caution_ingredients.join(", "))
+    @current_user_profile&.update(caution: @caution_ingredients.join(", "))
   end
 
   private
