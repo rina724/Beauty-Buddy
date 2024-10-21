@@ -1,30 +1,32 @@
-<header class="navbar bg-base-100 bg-mint rounded-md">
+<header class="navbar bg-mint rounded-md">
   <div class="flex-1">
     <%= link_to image_tag('logo2.png', class: "w-40 md:w-60 lg:w-64"), '/' %>
   </div>
 
   <!-- コスメ一覧 -->
   <div class="flex-none items-center">
-    <%= link_to cosmetics_path, class: "btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline mr-2" do %>
-        <svg xmlns="http://www.w3.org/2000/svg" 
+    <%= link_to cosmetics_path, class: "btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline border-gray-700 mr-2 group" do %>
+        <svg xmlns="http://www.w3.org/2000/svg"
+          class="text-gray-700 group-hover:text-white fill-current"
           height="24px" viewBox="0 0 24 24" width="24px" fill="#5f6368">
           <path d="M0 0h24v24H0z" fill="none"/>
           <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
         </svg>
-        <span class="hidden md:inline">
+        <div class="hidden md:inline text-gray-700 group-hover:text-white">
           <%= t("header.cosme_index") %>
-        </span>
+        </div>
     <% end %>
 
   <!-- カレンダー機能 -->
-    <%= link_to daily_reports_path, class: "btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline mr-2" do %>
-      <svg xmlns="http://www.w3.org/2000/svg" 
+    <%= link_to daily_reports_path, class: "btn btn-sm sm:btn-sm md:btn-md bg-cream btn-outline border-gray-700 mr-2 group" do %>
+      <svg xmlns="http://www.w3.org/2000/svg"
+        class="text-gray-700 group-hover:text-white fill-current"
         enable-background="new 0 0 24 24" 
         height="24px" viewBox="0 0 24 24" 
         width="24px" fill="#5f6368"><g><rect fill="none" height="24" width="24"/></g><g>
         <path d="M19,4h-1V2h-2v2H8V2H6v2H5C3.89,4,3.01,4.9,3.01,6L3,20c0,1.1,0.89,2,2,2h14c1.1,0,2-0.9,2-2V6C21,4.9,20.1,4,19,4z M19,20 H5V10h14V20z M9,14H7v-2h2V14z M13,14h-2v-2h2V14z M17,14h-2v-2h2V14z M9,18H7v-2h2V18z M13,18h-2v-2h2V18z M17,18h-2v-2h2V18z"/></g>
       </svg>
-      <span class="hidden md:inline">
+      <span class="hidden md:inline text-gray-700 group-hover:text-white">
         <%= t("header.calendar") %>
       </span>
     <% end %>
@@ -42,20 +44,19 @@
       <ul
         tabindex="0"
         class="menu menu-sm dropdown-content rounded-box mt-3 md:mt-5 w-52 p-2 shadow bg-mint items-center gap-1 z-30">
-            <li>
-              <%= link_to t("header.profile") , profiles_path, class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
-            </li>
-            <li>
-              <%= link_to t("header.setting"), user_path(current_user), class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
-            </li>
-            <li>
-              <%= link_to t("header.mycosme"), mycosmetics_path, class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
-            </li>
-            <li>
-              <%= link_to t("header.logout"), destroy_user_session_path, data: { turbo_method: :delete } , class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
-            </li>
-        </ul>
-      </div>
+          <li>
+            <%= link_to t("header.profile") , profiles_path, class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
+          </li>
+          <li>
+            <%= link_to t("header.setting"), user_path(current_user), class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
+          </li>
+          <li>
+            <%= link_to t("header.mycosme"), mycosmetics_path, class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
+          </li>
+          <li>
+            <%= link_to t("header.logout"), destroy_user_session_path, data: { turbo_method: :delete } , class: 'btn btn-sm md:btn-md bg-cream btn-outline min-w-32'%>
+          </li>
+      </ul>
     </div>
   </div>
 </header>
