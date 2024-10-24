@@ -98,6 +98,9 @@ ja:
       caution: 注意する成分
       select_allergy: アレルギー成分の登録
 
+  static_pages:
+      contact:
+        title: お問い合わせ
 
 
 
