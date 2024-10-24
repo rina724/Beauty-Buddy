@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "static_pages#top"
   get "contact", to: "static_pages#contact"
+  get "privacy", to: "static_pages#privacy"
 
   resources :users, only: %i[show]
   resources :cosmetics, only: %i[index show] do

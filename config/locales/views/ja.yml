@@ -101,8 +101,5 @@ ja:
   static_pages:
       contact:
         title: お問い合わせ
-
-
-
-
-
+      privacy:
+        title: プライバシーポリシー
