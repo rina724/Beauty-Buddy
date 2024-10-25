@@ -2,19 +2,19 @@
   <div class>
     <%= f.hidden_field :cosmetic_id, value: @cosmetic.id %>
     <div class="input input-bordered flex items-center gap-2 mb-4">
-      <%= f.label :usage_situation, t('mycosmetics.new.usage_situation') %>
+      <%= f.label :usage_situation %>
       <%= f.select :usage_situation, [['利用している',true],['利用していない',false]] %>
     </div>
     <div class="input input-bordered flex items-center gap-2 mb-4">
-      <%= f.label :starting_date, t('mycosmetics.new.starting_date') %>
+      <%= f.label :starting_date %>
       <%= f.date_field :starting_date %>
     </div>
     <div class="input input-bordered flex items-center gap-2 mb-4">
-      <%= f.label :problem, t('mycosmetics.new.problem') %>
+      <%= f.label :problem %>
       <%= f.select :problem, Mycosmetic.problems.keys.map {|k| [I18n.t("enums.mycosmetic.problem.#{k}"), k]} %>
     </div>
     <div class="input input-bordered flex flex-col items-center gap-2 mb-4 size-auto">
-      <%= f.label :memo, t('mycosmetics.new.memo') %>
+      <%= f.label :memo %>
       <%= f.text_area :memo , class: "w-full h-32 resize-y"%>
     </div>
   </div>

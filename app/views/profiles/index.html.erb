@@ -3,7 +3,7 @@
     <h1 class="font-gen text-3xl md:text-4xl p-5 text-center"><%= t('.title') %></h1>
 
     <div class="flex justify-center items-center z-10">
-      <div class="card flex flex-col items-center bg-base-100 w-52 pt-3">
+      <div class="card flex flex-col items-center bg-base-100 w-44 md:w-52 lg:w-60 pt-3">
         <%= image_tag @user.avatar_url, class: 'w-20 h-20 object-cover rounded-full', alt: 'アバターアイコン' %>
         <p class="text-lg md:text-xl mt-2">
           <%= @user.name %>

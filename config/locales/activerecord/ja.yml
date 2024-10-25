@@ -5,6 +5,10 @@ ja:
         usage_situation:
           true: "利用している"
           false: "利用していない"
+        usage_situation: 現在の利用状況
+        starting_date: 利用開始日
+        problem: 利用時の問題
+        memo: メモ
       daily_report:
         health: 体調
         daily_report_cosmetics: 今日使った化粧品
