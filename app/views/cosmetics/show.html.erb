@@ -24,7 +24,7 @@
           <%= t(".mycosmetic") %>
         </h1>
         <p>
-          <%= t('.usage_situation') %> <%= t('activerecord.attributes.mycosmetic.usage_situation')[@mycosmetic.usage_situation] %>
+          <%= t('.usage_situation') %> <%= t("activerecord.attributes.mycosmetic.usage.#{@mycosmetic.usage_situation}") %>
         </p>
         <p>
           <%= t('.starting_date') %> <%= @mycosmetic.starting_date %>

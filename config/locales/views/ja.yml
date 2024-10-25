@@ -77,11 +77,11 @@ ja:
 
   daily_report:
     health:
-      very_bad: "すごく悪い"
-      bad: "悪い"
-      normal: "普通"
-      good: "良い"
-      very_good: "すごく良い"
+      very_bad: すごく悪い
+      bad: 悪い
+      normal: 普通
+      good: 良い
+      very_good: すごく良い
 
   users:
     show:
