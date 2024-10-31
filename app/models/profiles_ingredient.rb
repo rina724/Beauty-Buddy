@@ -1,0 +1,2 @@
+class ProfilesIngredient < ApplicationRecord
+end

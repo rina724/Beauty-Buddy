@@ -18,8 +18,7 @@ ja:
         name: ユーザー名
         email: メールアドレス
         avatar: プロフィール画像
-      
-      
+
   enums:
     mycosmetic:
       problem:
