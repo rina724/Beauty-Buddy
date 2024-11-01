@@ -7,7 +7,7 @@ class CosmeticsController < ApplicationController
     @cosmetics = @q.result(distinct: true).includes(:category, :brand).page(params[:page])
     @user_mycosmetics = current_user.mycosmetics.pluck(:cosmetic_id)
     @profile = @user.profile
-    
+
     # 表示が有効な注意成分を取得
     @warning_ingredients = get_active_warning_ingredients
   end
@@ -28,13 +28,13 @@ class CosmeticsController < ApplicationController
 
   def get_active_warning_ingredients
     return [] unless @profile
-    
+
     # チェックされている（表示が有効な）注意成分を取得
     checked_caution_ingredients = @profile.ingredients.pluck(:name)
-    
+
     # アレルギー成分を配列として取得
-    allergy_ingredients = @profile.allergy&.split(',')&.map(&:strip) || []
-    
+    allergy_ingredients = @profile.allergy&.split(",")&.map(&:strip) || []
+
     # 両方の配列を結合して重複を除去
     (checked_caution_ingredients + allergy_ingredients).uniq
   end
