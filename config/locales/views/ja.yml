@@ -24,7 +24,7 @@ ja:
     sign_up: 新規登録
     cosme_index: コスメ一覧
     calendar: カレンダー
-    profile: プロフィール
+    profile: マイページ
     setting: アカウント設定
     mycosme: マイコスメ
 
@@ -93,7 +93,7 @@ ja:
 
   profiles:
     index:
-      title: プロフィール
+      title: マイページ
       allergy: アレルギー反応が出る成分
       caution: 注意する成分
       select_allergy: アレルギー成分の登録
