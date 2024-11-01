@@ -23,13 +23,36 @@
               登録する
             </button>
 
+            <%# 注意する成分セクション %>
             <h3 class="text-xl font-bold mb-2 mt-10"><%= t(".caution") %></h3>
-            <div class="text-lg outline-dashed outline-beige rounded">
-              <% if @caution_ingredients.any? %>
-                <%= @caution_ingredients.join(", ") %>
-              <% else %>
-                現在注意する成分はありません
+            <div class="text-lg outline-dashed outline-beige rounded p-4">
+            <%= form_with(url: profile_path(@current_user_profile), method: :patch,local: true, class: 'space-y-4') do |form| %>
+              <%= form.label :caution, "表示したい成分を選択してください:" %><br>
+              <% @caution_ingredients.each do |ingredient| %>
+                <div class="flex items-center space-x-2">
+                  <%= check_box_tag "ingredient_ids[]",
+                      ingredient.id,
+                      @current_user_profile.ingredient_selected?(ingredient),
+                      { 
+                        class: "checkbox",
+                        id: "ingredient_#{ingredient.id}"
+                      }
+                  %>
+                  <%= label_tag "ingredient_#{ingredient.id}", class: "cursor-pointer" do %>
+                    <%= ingredient.name %>
+                    <span class="text-sm text-gray-500">
+                      （<%= @ingredient_counts[ingredient] %>回検出）
+                    </span>
+                  <% end %>
+                </div>
               <% end %>
+            </div>
+      
+            <div class="mt-6">
+              <%= form.submit "設定を保存", class: "btn bg-beige btn-outline" %>
+            </div>
+          </div>
+        <% end %>
             </div>
           </div>
         </div>

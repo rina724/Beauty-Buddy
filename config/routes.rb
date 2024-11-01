@@ -36,10 +36,6 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :profiles, only: %i[index update] do
-    collection do
-      post :save_cautions
-    end
-  end
+  resources :profiles, only: %i[index update]
   resources :daily_reports, only: %i[new create index show edit update destroy]
 end
