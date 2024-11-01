@@ -18,8 +18,13 @@ class MycosmeticsController < ApplicationController
   end
 
   def index
+    @user = current_user
     @q = Mycosmetic.includes(cosmetic: [ :category, :brand ]).ransack(params[:q])
     @mycosmetics = @q.result(distinct: true).where(user: current_user).page(params[:page])
+    @profile = @user.profile
+
+    # 表示が有効な注意成分を取得
+    @warning_ingredients = get_active_warning_ingredients
   end
 
   def edit
@@ -67,5 +72,18 @@ class MycosmeticsController < ApplicationController
 
   def mycosmetic_params
     params.require(:mycosmetic).permit(:usage_situation, :starting_date, :problem, :memo, :cosmetic_id, :user_id)
+  end
+
+  def get_active_warning_ingredients
+    return [] unless @profile
+
+    # チェックされている（表示が有効な）注意成分を取得
+    checked_caution_ingredients = @profile.ingredients.pluck(:name)
+
+    # アレルギー成分を配列として取得
+    allergy_ingredients = @profile.allergy&.split(",")&.map(&:strip) || []
+
+    # 両方の配列を結合して重複を除去
+    (checked_caution_ingredients + allergy_ingredients).uniq
   end
 end
