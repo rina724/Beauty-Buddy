@@ -38,8 +38,8 @@
       </div>
 
       <div class="flex justify-center gap-6 pt-10">
-        <%= link_to t(".edit"), edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
-        <%= link_to t(".delete"), daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline"%>
+        <%= link_to t("helper.submit.edit"), edit_daily_report_path(@daily_report), class: "btn bg-beige btn-outline "%>
+        <%= link_to t("helper.submit.destroy"), daily_report_path(@daily_report), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class: "btn bg-beige btn-outline"%>
       </div>
     </div>
   </div>

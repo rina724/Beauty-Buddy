@@ -15,11 +15,11 @@ class DailyReportsController < ApplicationController
   def create
     @daily_report = current_user.daily_reports.build(daily_report_params)
     if @daily_report.save
-      redirect_to daily_reports_path, success: "デイリー入力が完了しました"
+      redirect_to daily_reports_path, success: t("defaults.flash_message.created", item: DailyReport.model_name.human)
     else
       @date = @daily_report.start_time
       @mycosmetids_for_daily_use = current_user.mycosmetics.for_daily_use
-      flash.now[:danger] = "すでに登録されています"
+      flash.now[:danger] = t("defaults.flash_message.alreadly_registered")
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,18 +35,18 @@ class DailyReportsController < ApplicationController
 
   def update
     if @daily_report.update(daily_report_params)
-      redirect_to daily_report_path(@daily_report), success: "デイリー入力を更新しました"
+      redirect_to daily_report_path(@daily_report), success: t("defaults.flash_message.updated", item: DailyReport.model_name.human)
     else
       @date = @daily_report.start_time
       @mycosmetids_for_daily_use = current_user.mycosmetics.for_daily_use
-      flash.now[:danger] = "デイリー入力の更新に失敗しました"
+      flash.now[:danger] = t("defaults.flash_message.not_updated", item: DailyReport.model_name.human)
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @daily_report.destroy!
-    redirect_to daily_reports_path, success: "カレンダーから削除しました"
+    redirect_to daily_reports_path, success: t("defaults.flash_message.destroyed", item: DailyReport.model_name.human)
   end
 
   private

@@ -9,13 +9,46 @@
   <div class="flex-col items-center pt-5">
     <% @mycosmetics.each do |mycosmetic| %>
       <div id="mycosmetic-id-<%= mycosmetic.cosmetic_id %>">
-      <div class="card card-side bg-base-100 m-4 mx-9 flex items-center">
+      <div class="card card-side bg-base-100 m-4 flex items-center">
 
         <div class="size-48 p-3">
           <%= image_tag mycosmetic.cosmetic.image, class: "object-contain w-full h-full"%>
         </div>
 
-        <div class="card-body w-[calc(100%_-_192px)]">
+        <div class="card-body w-[calc(100%_-_150px)] md:w-[calc(100%_-_192px)]">
+        <% matching_ingredients = mycosmetic.cosmetic.ingredients.map(&:name) & @warning_ingredients %>
+        <% if matching_ingredients.any? %>
+          <div class="collapse bg-yellow">
+          <input type="checkbox" /> 
+          <div class="collapse-title flex items-center">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="stroke-current flex-shrink-0 h-6 w-6 mr-2" 
+              fill="none" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" 
+              />
+            </svg>
+            
+            <span>
+              注意 (<%= matching_ingredients.count %>成分)
+            </span>
+          </div>
+          
+            <div class="collapse-content"> 
+              <ul class="list-disc list-inside">
+                <% matching_ingredients.each do |ingredient| %>
+                  <li><%= ingredient %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
           <h2 class="card-title">
             <%= link_to mycosmetic.cosmetic.product_name, cosmetic_path(mycosmetic.cosmetic) %>
           </h2>
@@ -29,7 +62,7 @@
           </p>
 
           <p>
-            <%= t('cosmetics.show.usage_situation') %> <%= t('activerecord.attributes.mycosmetic.usage_situation')[mycosmetic.usage_situation] %>
+            <%= t('cosmetics.show.usage_situation') %> <%= t("activerecord.attributes.mycosmetic.usage.#{mycosmetic.usage_situation}") %>
           </p>
 
           <p>
@@ -45,8 +78,8 @@
           </p>
 
           <div class="card-actions justify-end">
-            <%= link_to t("mycosmetics.index.edit"), edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
-            <%= link_to t("mycosmetics.index.delete"), mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
+            <%= link_to t("helper.submit.edit"), edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
+            <%= link_to t("helper.submit.destroy"), mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class: "btn bg-beige btn-outline" %>
             <%= render 'cosmetics/favorite_buttons', { cosmetic: mycosmetic.cosmetic } %>
           </div>
         </div>

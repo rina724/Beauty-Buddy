@@ -3,7 +3,7 @@
     <h1 class="font-gen text-3xl md:text-4xl p-5 text-center"><%= t('.title') %></h1>
 
     <div class="flex justify-center items-center z-10">
-      <div class="card flex flex-col items-center bg-base-100 w-52 pt-3">
+      <div class="card flex flex-col items-center bg-base-100 w-44 md:w-52 lg:w-60 pt-3">
         <%= image_tag @user.avatar_url, class: 'w-20 h-20 object-cover rounded-full', alt: 'アバターアイコン' %>
         <p class="text-lg md:text-xl mt-2">
           <%= @user.name %>
@@ -14,7 +14,6 @@
     <div class="card bg-base-100 -mt-16 w-full">
       <div class="card-body text-center pt-24">
         <div class="space-y-8">
-          <div>
             <h3 class="text-xl font-bold mb-2"><%= t(".allergy") %></h3>
             <p class="text-lg mb-5 rounded-lg outline-dashed outline-beige">
               <%= @current_user_profile.allergy.presence || "未登録" %>
@@ -23,12 +22,32 @@
               登録する
             </button>
 
+            <%# 注意する成分セクション %>
             <h3 class="text-xl font-bold mb-2 mt-10"><%= t(".caution") %></h3>
-            <div class="text-lg outline-dashed outline-beige rounded">
-              <% if @caution_ingredients.any? %>
-                <%= @caution_ingredients.join(", ") %>
-              <% else %>
-                現在注意する成分はありません
+            <div class="text-lg outline-dashed outline-beige rounded p-4">
+              <%= form_with(url: profile_path(@current_user_profile), method: :patch,local: true, class: 'space-y-4') do |form| %>
+                <%= form.label :caution, "表示したい成分を選択してください:" %><br>
+                <% @caution_ingredients.each do |ingredient| %>
+                <div class="flex items-center space-x-2">
+                  <%= check_box_tag "ingredient_ids[]",
+                      ingredient.id,
+                      @current_user_profile.ingredient_selected?(ingredient),
+                      { 
+                        class: "checkbox",
+                        id: "ingredient_#{ingredient.id}"
+                      }
+                  %>
+                    <%= label_tag "ingredient_#{ingredient.id}", class: "cursor-pointer" do %>
+                      <%= ingredient.name %>
+                      <span class="text-sm text-gray-500">
+                        （<%= @ingredient_counts[ingredient] %>回検出）
+                      </span>
+                    <% end %>
+                </div>
+                <% end %>
+              <div class="mt-6">
+                <%= form.submit "設定を保存", class: "btn bg-beige btn-outline px-8" %>
+              </div>
               <% end %>
             </div>
           </div>
@@ -36,7 +55,6 @@
       </div>
     </div>
   </div>
-</div>
 
 <!-- モーダル -->
 <dialog id="ingredientModal" class="modal">
@@ -48,8 +66,8 @@
         <%= form.text_field :allergy, class: "input input-bordered w-full" %>
       </div>
       <div class="modal-action">
-        <%= form.submit "登録", class: "btn bg-beige btn-outline" %>
-        <button type="button" class="btn" onclick="ingredientModal.close()">キャンセル</button>
+        <%= form.submit t('helper.submit.create'), class: "btn bg-beige btn-outline" %>
+        <button type="button" class="btn btn-outline bg-gray-200" onclick="ingredientModal.close()">キャンセル</button>
       </div>
     <% end %>
   </div>
