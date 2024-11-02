@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    models:
+      mycosmetic: マイコスメ
+      user: ユーザー
+      daily_report: デイリー入力
     attributes:
       mycosmetic:
         usage:

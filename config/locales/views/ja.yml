@@ -1,11 +1,11 @@
 ja:
   helper:
     submit:
-      create: 登録する
-      update: 更新する
-      save: 保存する
-      edit: 編集する
-      destroy: 削除する
+      create: 登録
+      update: 更新
+      save: 保存
+      edit: 編集
+      destroy: 削除
 
   defaults:
     delete_confirm: 削除しますか？
@@ -17,6 +17,7 @@ ja:
       not_updated: "%{item}を更新出来ませんでした"
       destroyed: "%{item}を削除しました"
       cannot_be_accessed: このページにはアクセスできません
+      already_registered: すでに登録されています
 
   header:
     login: ログイン
@@ -26,7 +27,7 @@ ja:
     calendar: カレンダー
     profile: マイページ
     setting: アカウント設定
-    mycosme: マイコスメ
+    mycosme: マイコスメ一覧
 
   footer:
     terms_of_service: 利用規約
@@ -42,7 +43,6 @@ ja:
     show:
       title: 化粧品詳細
       mycosmetic: マイコスメ登録内容
-      edit: 編集
       usage_situation: "現在利用しているか："
       starting_date: "利用開始日："
       problem: "利用時の問題："
@@ -53,10 +53,11 @@ ja:
       title: マイコスメ登録
     index:
       title: マイコスメ一覧
-      edit: 編集
-      delete: 削除
     edit:
       title: マイコスメ編集
+    update:
+      success: 登録内容を更新しました
+      failure: 登録内容の更新に失敗しました
 
   daily_reports:
     index:
@@ -72,8 +73,6 @@ ja:
       today_mycosmetic: 今日使った化粧品
       health: 体調
       memo: メモ
-      edit: 編集
-      delete: 削除
 
   daily_report:
     health:
@@ -89,7 +88,6 @@ ja:
       name: ユーザー名
       email: メールアドレス
       avatar: プロフィール画像
-      edit: 編集
 
   profiles:
     index:
@@ -97,6 +95,8 @@ ja:
       allergy: アレルギー反応が出る成分
       caution: 注意する成分
       select_allergy: アレルギー成分の登録
+    update:
+      success: 設定を保存しました
 
   static_pages:
       contact:

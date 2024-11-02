@@ -21,16 +21,14 @@ class ProfilesController < ApplicationController
     @ingredient_counts = count_ingredients
     @caution_ingredients = get_frequent_ingredients
 
-    ActiveRecord::Base.transaction do
-      if update_ingredients
-        # 成分の関連付けを更新
+    if update_ingredients
+      # 成分の関連付けを更新
 
-        redirect_to profiles_path, notice: "設定を保存しました"
-      else
-        @ingredient_counts = count_ingredients
-        @caution_ingredients = get_frequent_ingredients
-        render :index, status: :unprocessable_entity
-      end
+      redirect_to profiles_path, success: t("profiles.update.success")
+    else
+      @ingredient_counts = count_ingredients
+      @caution_ingredients = get_frequent_ingredients
+      render :index, status: :unprocessable_entity
     end
   end
 

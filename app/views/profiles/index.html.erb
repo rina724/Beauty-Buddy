@@ -46,7 +46,7 @@
                 </div>
                 <% end %>
               <div class="mt-6">
-                <%= form.submit "設定を保存", class: "btn bg-beige btn-outline" %>
+                <%= form.submit "設定を保存", class: "btn bg-beige btn-outline px-8" %>
               </div>
               <% end %>
             </div>
@@ -66,8 +66,8 @@
         <%= form.text_field :allergy, class: "input input-bordered w-full" %>
       </div>
       <div class="modal-action">
-        <%= form.submit "登録", class: "btn bg-beige btn-outline" %>
-        <button type="button" class="btn" onclick="ingredientModal.close()">キャンセル</button>
+        <%= form.submit t('helper.submit.create'), class: "btn bg-beige btn-outline" %>
+        <button type="button" class="btn btn-outline bg-gray-200" onclick="ingredientModal.close()">キャンセル</button>
       </div>
     <% end %>
   </div>

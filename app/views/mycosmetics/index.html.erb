@@ -78,8 +78,8 @@
           </p>
 
           <div class="card-actions justify-end">
-            <%= link_to t("mycosmetics.index.edit"), edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
-            <%= link_to t("mycosmetics.index.delete"), mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn bg-beige btn-outline" %>
+            <%= link_to t("helper.submit.edit"), edit_mycosmetic_path(mycosmetic, cosmetic_id: mycosmetic.cosmetic_id), class: "btn bg-beige btn-outline" %>
+            <%= link_to t("helper.submit.destroy"), mycosmetic_path(mycosmetic), data: { turbo_method: :delete, turbo_confirm: t("defaults.delete_confirm") }, class: "btn bg-beige btn-outline" %>
             <%= render 'cosmetics/favorite_buttons', { cosmetic: mycosmetic.cosmetic } %>
           </div>
         </div>
