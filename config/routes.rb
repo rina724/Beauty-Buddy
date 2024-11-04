@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "contact", to: "static_pages#contact"
   get "privacy", to: "static_pages#privacy"
   get "terms_of_service", to: "static_pages#terms_of_service"
+  post 'callback' => 'line_bot#callback'
 
   resources :users, only: %i[show]
   resources :cosmetics, only: %i[index show] do
