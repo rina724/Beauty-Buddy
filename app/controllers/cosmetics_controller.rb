@@ -10,10 +10,7 @@ class CosmeticsController < ApplicationController
 
     # 表示が有効な注意成分を取得
     @warning_ingredients = get_active_warning_ingredients
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
+
   end
 
   def show

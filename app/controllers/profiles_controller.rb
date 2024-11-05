@@ -15,12 +15,22 @@ class ProfilesController < ApplicationController
     @selected_ingredient_ids = @current_user_profile.ingredients.pluck(:id)
   end
 
+  def update_allergy
+    @user = current_user
+    @current_user_profile = Profile.find(params[:id])
+    if @current_user_profile.update(profile_params)
+      redirect_to profiles_path
+    else
+      render :update, status: :unprocessable_entity
+    end
+  end
+
   def update
     @user = current_user
     @current_user_profile = @user.profile
     @ingredient_counts = count_ingredients
     @caution_ingredients = get_frequent_ingredients
-
+    
     if update_ingredients
       # 成分の関連付けを更新
 
