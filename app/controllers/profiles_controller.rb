@@ -2,6 +2,7 @@ class ProfilesController < ApplicationController
   def index
     @user = current_user
     @current_user_profile = @user.profile || @user.build_profile
+    @current_user_profile.save if @current_user_profile.new_record?
 
     # バッド評価のマイコスメを取得
     @user_bad_mycosmetics = Mycosmetic.joins(:cosmetic)

@@ -8,7 +8,6 @@ class LineBotController < ApplicationController
     line_event['events'].each do |event|
       if event['type'] == 'message' && event['message']['type'] == 'text'
         received_cosmetic_name = event['message']['text']
-        
 
         # ユーザーが存在しているか確認
         if current_user
@@ -19,7 +18,7 @@ class LineBotController < ApplicationController
             client.reply_message(event['replyToken'], "化粧品「#{received_cosmetic_name}」は見つかりませんでした。")
           elsif cosmetics.count == 1
             cosmetic = cosmetics.first
-            mycosmetic = Mycosmetic.find_by(user_id: current_user.id, cosmetic_id: cosmetic.id)
+            mycosmetic = Mycosmetic.find_by(user_id: user.id, cosmetic_id: cosmetic.id)
 
             if mycosmetic
               client.reply_message(
@@ -59,7 +58,6 @@ class LineBotController < ApplicationController
 
   private
 
-  
 
 
   def client
