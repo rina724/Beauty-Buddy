@@ -52,7 +52,11 @@ class LineBotController < ApplicationController
       mycosmetic = Mycosmetic.find_by(user_id: @current_user.id, cosmetic_id: cosmetic.id)
 
       if mycosmetic.present?
-        send_message(reply_token, "登録内容:\n 使用状況: #{mycosmetic.usage_situation}\n 開始日: #{mycosmetic.starting_date}\n 問題: #{mycosmetic.problem}\n メモ: #{mycosmetic.memo}")
+        usage_message = I18n.t("activerecord.attributes.mycosmetic.usage.#{mycosmetic.usage_situation}")
+        problem_message = I18n.t("enums.mycosmetic.problem.#{mycosmetic.problem}")
+        starting_date_message = mycosmetic.starting_date.strftime(I18n.t('date.formats.long'))
+
+        send_message(reply_token, "登録内容:\n 使用状況: #{usage_message}\n 開始日: #{starting_date_message}\n 問題: #{problem_message}\n メモ: #{mycosmetic.memo}")
       else
         send_message(reply_token, "#{cosmetic.product_name}を登録します。\n使用状況を入力してください。")
       end
