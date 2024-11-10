@@ -86,7 +86,7 @@ class LineBotController < ApplicationController
       if warning_ingredients.empty?
         send_message(reply_token, "注意する成分はありません。")
       else
-        message = "この化粧品には以下の成分が含まれています。注意が必要です:\n\n"
+        message = "この化粧品には以下の注意する成分が含まれています。\n\n"
         warning_ingredients.each do |ingredient|
           message += "- #{ingredient}\n"
         end
