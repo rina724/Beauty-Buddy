@@ -3,10 +3,10 @@ class LineBotController < ApplicationController
 
   def callback
     body = request.body.read
-    signature = request.headers['X-Line-Signature']
+    signature = request.headers["X-Line-Signature"]
 
     unless client.validate_signature(body, signature)
-      render json: { message: 'Invalid signature' }, status: 401 and return
+      render json: { message: "Invalid signature" }, status: 401 and return
     end
 
     events = client.parse_events_from(body)
@@ -15,15 +15,15 @@ class LineBotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
-          user_id = event['source']['userId']
+          user_id = event["source"]["userId"]
           @current_user = User.find_by(uid: user_id)
 
-          if event.message['text'].include?("登録")
+          if event.message["text"].include?("登録")
             handle_registration(event)
-          elsif event.message['text'].include?("成分")
+          elsif event.message["text"].include?("成分")
             handle_ingredient(event)
           else
-            send_message(event['replyToken'], "申し訳ありません。正しいコマンドを入力してください。")
+            send_message(event["replyToken"], "申し訳ありません。正しいコマンドを入力してください。")
           end
         end
       end
@@ -33,8 +33,8 @@ class LineBotController < ApplicationController
   end
 
   def handle_registration(event)
-    user_input = event.message['text']
-    reply_token = event['replyToken']
+    user_input = event.message["text"]
+    reply_token = event["replyToken"]
 
     # 「登録」という単語だけの場合
     if user_input.strip == "登録"
@@ -43,7 +43,7 @@ class LineBotController < ApplicationController
 
     # 「登録」を除いた商品名を取得
     product_name = user_input.gsub("登録", "").strip
-    
+
     cosmetic = Cosmetic.find_by(product_name: product_name)
 
     if cosmetic.nil?
@@ -54,7 +54,7 @@ class LineBotController < ApplicationController
       if mycosmetic.present?
         usage_message = I18n.t("activerecord.attributes.mycosmetic.usage.#{mycosmetic.usage_situation}")
         problem_message = I18n.t("enums.mycosmetic.problem.#{mycosmetic.problem}")
-        starting_date_message = mycosmetic.starting_date.strftime(I18n.t('date.formats.long'))
+        starting_date_message = mycosmetic.starting_date.strftime(I18n.t("date.formats.long"))
 
         send_message(reply_token, "登録内容:\n 使用状況: #{usage_message}\n 開始日: #{starting_date_message}\n 問題: #{problem_message}\n メモ: #{mycosmetic.memo}")
       else
@@ -64,8 +64,8 @@ class LineBotController < ApplicationController
   end
 
   def handle_ingredient(event)
-    user_input = event.message['text']
-    reply_token = event['replyToken']
+    user_input = event.message["text"]
+    reply_token = event["replyToken"]
 
     # 「成分」という単語だけの場合
     if user_input.strip == "成分"
@@ -97,7 +97,7 @@ class LineBotController < ApplicationController
 
   def send_message(reply_token, text)
     message = {
-      type: 'text',
+      type: "text",
       text: text
     }
 

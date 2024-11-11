@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
     @current_user_profile = @user.profile
     @ingredient_counts = count_ingredients
     @caution_ingredients = get_frequent_ingredients
-    
+
     if update_ingredients
       # 成分の関連付けを更新
 
