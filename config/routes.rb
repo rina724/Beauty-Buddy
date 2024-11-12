@@ -3,7 +3,8 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions",
     passwords: "users/passwords",
-    confirmations: "users/confirmations"
+    confirmations: "users/confirmations",
+    omniauth_callbacks: "users/omniauth_callbacks"
   }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   get "contact", to: "static_pages#contact"
   get "privacy", to: "static_pages#privacy"
   get "terms_of_service", to: "static_pages#terms_of_service"
+  post "callback" => "line_bot#callback"
 
   resources :users, only: %i[show]
   resources :cosmetics, only: %i[index show] do
@@ -36,6 +38,10 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :profiles, only: %i[index update]
+  resources :profiles, only: %i[index update] do
+    member do
+      patch :update_allergy
+    end
+  end
   resources :daily_reports, only: %i[new create index show edit update destroy]
 end

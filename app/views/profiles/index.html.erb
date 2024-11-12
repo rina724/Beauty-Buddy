@@ -59,7 +59,7 @@
 <!-- モーダル -->
 <dialog id="ingredientModal" class="modal">
   <div class="modal-box">
-    <%= form_with model: @current_user_profile, url: profile_path(@current_user_profile), method: :patch, local: true do |form| %>
+    <%= form_with model: @current_user_profile, url: update_allergy_profile_path(@current_user_profile), method: :patch, local: true do |form| %>
       <h3 class="font-bold text-lg mb-4"><%= t(".select_allergy") %></h3>
       <div class="form-control">
         <%= form.label :allergy, "ここに成分を記入してください", class: "label" %>

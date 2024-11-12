@@ -44,6 +44,12 @@
       <button class="btn btn-md bg-beige btn-outline">
         <%= f.submit t('.sign_in') %>
       </button>
+      <div class="relative pt-5">
+        <%= link_to user_line_omniauth_authorize_path, method: :post, class: "block relative group" do %>
+          <%= image_tag "btn_login_base.png", class: "transition-opacity duration-200 ease-in-out" %>
+          <%= image_tag "btn_login_hover.png", class: "absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out" %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
