@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_07_183316) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_12_114507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -90,6 +90,17 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_183316) do
     t.index ["name"], name: "index_ingredients_on_name", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "temp_usage"
+    t.string "temp_date"
+    t.string "temp_problem"
+    t.text "temp_memo"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "mycosmetics", force: :cascade do |t|
     t.boolean "usage_situation"
     t.date "starting_date"
@@ -149,6 +160,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_183316) do
   add_foreign_key "daily_reports", "users"
   add_foreign_key "favorites", "cosmetics"
   add_foreign_key "favorites", "users"
+  add_foreign_key "messages", "users"
   add_foreign_key "mycosmetics", "cosmetics"
   add_foreign_key "mycosmetics", "users"
   add_foreign_key "profiles", "mycosmetics"
